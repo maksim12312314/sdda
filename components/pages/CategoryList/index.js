@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text } from "react-native";
-import Header from "../../Header";
+import { ScrollView, View } from "react-native";
+import CategoryItem from "./CategoryItem";
 import styles from "./styles";
 
 // Список категорий товаров
@@ -8,10 +8,18 @@ import styles from "./styles";
 const CategoryList = (props) =>
 {
     return (
-        <View style={styles.view}>
-            <Header/>
-			<Text>Если ты видишь этот текст значит всё работает нормально</Text>
-		</View>
+        <ScrollView style={styles.view}>
+			<View style={styles.categorylist}>
+                <CategoryItem/>
+                <CategoryItem/>
+                <CategoryItem/>
+                <CategoryItem/>
+                <CategoryItem/>
+                <CategoryItem/>
+                <CategoryItem/>
+                <CategoryItem/>
+            </View>
+		</ScrollView>
     );
 }
 

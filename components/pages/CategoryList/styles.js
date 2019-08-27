@@ -2,10 +2,12 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     view: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: '#2A8F92',
+    },
+    categorylist: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "center",
     }
 });
 
