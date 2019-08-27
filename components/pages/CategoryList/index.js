@@ -1,5 +1,6 @@
 import React from "react";
 import { ScrollView, View } from "react-native";
+import { LinearGradient } from 'expo-linear-gradient';
 import CategoryItem from "./CategoryItem";
 import styles from "./styles";
 
@@ -9,16 +10,20 @@ const CategoryList = (props) =>
 {
     return (
         <ScrollView style={styles.view}>
-			<View style={styles.categorylist}>
-                <CategoryItem/>
-                <CategoryItem/>
-                <CategoryItem/>
-                <CategoryItem/>
-                <CategoryItem/>
-                <CategoryItem/>
-                <CategoryItem/>
-                <CategoryItem/>
-            </View>
+            <LinearGradient
+                style={styles.categorylist}
+                locations={[0, 1.0]} 
+                colors={['#078998', '#65B7B9']}>
+                
+                    <CategoryItem/>
+                    <CategoryItem/>
+                    <CategoryItem/>
+                    <CategoryItem/>
+                    <CategoryItem/>
+                    <CategoryItem/>
+                    <CategoryItem/>
+                    <CategoryItem/>
+            </LinearGradient>
 		</ScrollView>
     );
 }
