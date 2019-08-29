@@ -1,5 +1,5 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import styles from "./styles";
 
 // Итог
@@ -7,7 +7,9 @@ import styles from "./styles";
 const CartTotal = (props) =>
 {
     return (
-        <Text>Итого: 130$</Text>
+        <View style={styles.container}>
+            <Text style={styles.text}>Итого: 120$</Text>
+        </View>
     );
 }
 
