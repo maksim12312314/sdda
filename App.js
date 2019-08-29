@@ -1,12 +1,16 @@
 import React from "react";
-import CategoryList from "./components/pages/CategoryList";
+import Cart from "./components/pages/Cart";
+import {AppRegistry} from 'react-native';
+import {name as appName} from "./app.json";
+
+AppRegistry.registerComponent(appName, ()=>App);
 
 const App = () =>
 {
 	// Сюда запихиваем свою страницу
 	// после чего можно работать над ней
 	return (
-		<CategoryList/>
+		<Cart/>
 	);
 }
 export default App;
