@@ -4,11 +4,16 @@ const styles = StyleSheet.create({
     view: {
     },
     container: {
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
         height: Dimensions.get("window").height,
-    }
+    },
+    items: {
+        justifyContent: "center",
+    },
+    icon: {
+        
+    },
 });
 
 export default styles;

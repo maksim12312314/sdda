@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, Text } from "react-native";
+import { ScrollView, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import CartIcon from "./CartIcon";
 import CartItem from "./CartItem";
@@ -17,11 +17,13 @@ const Cart = (props) =>
                 locations={[0, 1.0]} 
                 colors={["#E81C1C", "#E4724F"]}>
                 
-                <CartIcon/>
+                <CartIcon style={styles.icon}/>
 
-                <CartItem/>
-                <CartItem/>
-                <CartTotal/>
+                <View style={styles.items}>
+                    <CartItem/>
+                    <CartItem/>
+                    <CartTotal/>
+                </View>
             </LinearGradient>
 		</ScrollView>
     );
