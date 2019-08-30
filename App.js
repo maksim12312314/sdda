@@ -17,8 +17,8 @@ const reducer = (state, action) =>
 					return true;
 			});
 			const newState = {...state};
-			elem.count = --elem.count;
-			newState.cartItems[newState.cartItems.indexOf(elem)] = elem;
+			elem[0].count = elem[0].count - 1;
+			newState.cartItems[newState.cartItems.indexOf(elem[0])] = elem[0];
 			return newState;
 		}
 		default:
