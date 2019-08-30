@@ -4,11 +4,26 @@ import Cart from "./components/pages/Cart";
 import { AppRegistry } from 'react-native';
 import { name as appName } from "./app.json";
 
+Math.clamp = function(num, min, max) {
+	return this.min(this.max(num, min), max);
+};
+
 AppRegistry.registerComponent(appName, ()=>App);
 const reducer = (state, action) =>
 {
 	switch (action.type)
 	{
+		case "ComputeTotalPrice":
+		{
+			const newState = {...state};
+			newState.cartTotalPrice = 0;
+
+			state.cartItems.map( (v) =>
+			{
+				newState.cartTotalPrice += v.price * v.count;
+			});
+			return newState;
+		}
 		case "minus":
 		{
 			const elem = state.cartItems.filter( (v, i) =>
@@ -17,7 +32,21 @@ const reducer = (state, action) =>
 					return true;
 			});
 			const newState = {...state};
-			elem[0].count = elem[0].count - 1;
+			elem[0].count = Math.clamp(--elem[0].count, 1, 99);
+
+			newState.cartItems[newState.cartItems.indexOf(elem[0])] = elem[0];
+			return newState;
+		}
+		case "plus":
+		{
+			const elem = state.cartItems.filter( (v, i) =>
+			{
+				if ( v.id == action.payload )
+					return true;
+			});
+			const newState = {...state};
+			elem[0].count = Math.clamp(++elem[0].count, 1, 99);
+			
 			newState.cartItems[newState.cartItems.indexOf(elem[0])] = elem[0];
 			return newState;
 		}
@@ -41,6 +70,7 @@ const initialState = {
 			name: "КрАлик лехчи",
 		},
 	],
+	cartTotalPrice: 0,
 };
 
 const App = () =>

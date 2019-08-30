@@ -12,21 +12,24 @@ const ItemCount = (props) =>
     const state = useContext(stateContext);
     const dispatch = useContext(dispatchContext);
     const {count, id} = props;
-    
-     
 
     return (
         <View style={styles.container}>
             <Text style={styles.item_count}>{count} шт</Text>
             <View>
-                <TouchableOpacity style={styles.button}>
-                    <FontAwesomeIcon size={12} color={"#fff"} icon={ faPlusCircle }/>
+            <TouchableOpacity onPress={ (e) =>
+                {
+                    dispatch({type: "plus", payload: id});
+                    dispatch({type: "ComputeTotalPrice"});
+                }} style={styles.button}>
+                    <FontAwesomeIcon size={16} color={"#fff"} icon={ faPlusCircle }/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={ (e) =>
                 {
                     dispatch({type: "minus", payload: id});
+                    dispatch({type: "ComputeTotalPrice"});
                 }} style={styles.button}>
-                    <FontAwesomeIcon size={12} color={"#fff"} icon={ faMinusCircle }/>
+                    <FontAwesomeIcon size={16} color={"#fff"} icon={ faMinusCircle }/>
                 </TouchableOpacity>
             </View>
         </View>

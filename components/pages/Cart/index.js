@@ -14,7 +14,7 @@ const Cart = (props) =>
 {
     const state = useContext(stateContext);
     const dispatch = useContext(dispatchContext);
-    console.log(state.cartItems.length)
+    
     return (
         <ScrollView style={styles.view}>
             <LinearGradient

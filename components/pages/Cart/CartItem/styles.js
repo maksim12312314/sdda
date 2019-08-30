@@ -3,7 +3,8 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
-        alignItems: "flex-start",
+        alignItems: "center",
+        alignSelf: "flex-start",
         paddingVertical: 4,
     },
     item_name: {
@@ -20,6 +21,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginHorizontal: 8,
     },
+    right: {
+        flexDirection: "row",
+        alignItems: "center",
+        alignContent: "flex-end",
+    }
 });
 
 export default styles;
