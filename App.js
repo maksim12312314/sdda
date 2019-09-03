@@ -1,8 +1,11 @@
 import React, { useReducer } from "react";
 import { stateContext, dispatchContext } from "./contexts";
-import Cart from "./components/pages/Cart";
+import CategoryList from "./components/pages/CategoryList/index";
+import Cart from "./components/pages/Cart/index";
 import { AppRegistry } from 'react-native';
 import { name as appName } from "./app.json";
+import { createAppContainer,} from "react-navigation";
+import {createBottomTabNavigator} from "react-navigation-tabs";
 
 Math.clamp = function(num, min, max) {
 	return this.min(this.max(num, min), max);
@@ -73,6 +76,21 @@ const initialState = {
 	cartTotalPrice: 0,
 };
 
+const NotYoursNavigator = createBottomTabNavigator( {
+	Home: {  
+		screen: Cart,
+		title: 'App',
+		},
+	Category: {
+		screen: CategoryList,
+		title: 'Category'
+	},
+		
+},
+{
+	initialRouteName : "Home"
+  } );
+
 const App = () =>
 {
 	const [state, dispatch] = useReducer(reducer, initialState);
@@ -82,9 +100,9 @@ const App = () =>
 	return (
 		<stateContext.Provider value={state}>
 			<dispatchContext.Provider value={dispatch}>
-				<Cart/>
+				<CategoryList/>
 			</dispatchContext.Provider>
 		</stateContext.Provider>
 	);
 }
-export default App;
+export default createAppContainer(NotYoursNavigator);
