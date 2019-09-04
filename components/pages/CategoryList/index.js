@@ -15,7 +15,7 @@ const CategoryList = (props) =>
                 style={styles.categorylist}
                 locations={[0, 1.0]} 
                 colors={['#078998', '#65B7B9']}>
-                    <Header/>
+                    <Header {...props}/>
                     <CategoryItem/>
                     <CategoryItem/>
                     <CategoryItem/>

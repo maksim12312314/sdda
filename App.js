@@ -78,22 +78,25 @@ const initialState = {
 };
 
 const NotYoursNavigator = createBottomTabNavigator( {
-	Home: {  
-		screen: Cart,
-		title: 'App',
-		},
-	Category: {
+	CategoryList: {  
 		screen: CategoryList,
-		title: 'Category'
+		title: 'Category',
+		navigationOptions: {tabBarVisible:false}
+		},
+	Cart: {
+		screen: Cart,
+		title: 'Cart',
+		navigationOptions: {tabBarVisible:false}
 	},
 	Head: {
 		screen: Header,
-		title: 'Head'
+		title: 'Head',
+		navigationOptions: {tabBarVisible:false}
 	},
 		
 },
 {
-	initialRouteName : "Home"
+	initialRouteName : "CategoryList"
   } );
 
 const AppContainer = createAppContainer(NotYoursNavigator);
