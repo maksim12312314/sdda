@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { stateContext, dispatchContext } from "../../../contexts";
 
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import CartIcon from "./CartIcon";
 import CartItem from "./CartItem";

@@ -2,6 +2,7 @@ import React, { useReducer } from "react";
 import { stateContext, dispatchContext } from "./contexts";
 import CategoryList from "./components/pages/CategoryList/index";
 import Cart from "./components/pages/Cart/index";
+import Header from "./components/Header/index";
 import { AppRegistry } from 'react-native';
 import { name as appName } from "./app.json";
 import { createAppContainer,} from "react-navigation";
@@ -85,11 +86,17 @@ const NotYoursNavigator = createBottomTabNavigator( {
 		screen: CategoryList,
 		title: 'Category'
 	},
+	Head: {
+		screen: Header,
+		title: 'Head'
+	},
 		
 },
 {
 	initialRouteName : "Home"
   } );
+
+const AppContainer = createAppContainer(NotYoursNavigator);
 
 const App = () =>
 {
@@ -100,9 +107,9 @@ const App = () =>
 	return (
 		<stateContext.Provider value={state}>
 			<dispatchContext.Provider value={dispatch}>
-				<CategoryList/>
+				<AppContainer/>
 			</dispatchContext.Provider>
 		</stateContext.Provider>
 	);
 }
-export default createAppContainer(NotYoursNavigator);
+export default App;

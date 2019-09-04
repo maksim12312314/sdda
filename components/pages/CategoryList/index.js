@@ -3,7 +3,7 @@ import { ScrollView, View } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import CategoryItem from "./CategoryItem";
 import styles from "./styles";
-import Header from "../../Header/index"
+import Header from "../../Header/index";
 
 // Список категорий товаров
 
