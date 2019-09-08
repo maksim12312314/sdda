@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         color: "#FFF",
         fontSize: 16,
         marginHorizontal: 16,
-        flexGrow: 0
+        flexGrow: 0,
     },
     right: {
         width: 120,

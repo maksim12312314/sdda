@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
         color: "#FFF",
         fontSize: 16,
         marginHorizontal: 8,
+        width: 50,
     },
     button: {
         marginVertical: 2

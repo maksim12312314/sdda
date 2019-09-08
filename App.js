@@ -63,13 +63,13 @@ const initialState = {
 	cartItems: [
 		{
 			id: 15,
-			count: 2,
+			count: 99,
 			price: 40,
 			name: "КрАлик жОский",
 		},
 		{
 			id: 16,
-			count: 3,
+			count: 99,
 			price: 80,
 			name: "КрАлик лехчи",
 		},
