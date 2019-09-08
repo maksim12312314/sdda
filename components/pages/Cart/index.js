@@ -1,5 +1,7 @@
-import React from "react";
-import { ScrollView, View } from "react-native";
+import React, { useContext } from "react";
+import { stateContext, dispatchContext } from "../../../contexts";
+
+import { ScrollView, View, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import CartIcon from "./CartIcon";
 import CartItem from "./CartItem";
@@ -10,6 +12,9 @@ import styles from "./styles";
 
 const Cart = (props) =>
 {
+    const state = useContext(stateContext);
+    const dispatch = useContext(dispatchContext);
+    
     return (
         <ScrollView style={styles.view}>
             <LinearGradient
@@ -20,8 +25,12 @@ const Cart = (props) =>
                 <CartIcon style={styles.icon}/>
 
                 <View style={styles.items}>
-                    <CartItem/>
-                    <CartItem/>
+                    { !state.cartItems.length
+                        ? <Text>Товаров нет</Text>
+                        : state.cartItems.map( (v, i) =>
+                        {
+                            return <CartItem key={i} data={v}/>
+                        }) }
                     <CartTotal/>
                 </View>
             </LinearGradient>

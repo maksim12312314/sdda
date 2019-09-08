@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
         borderColor: "#FFF",
         alignItems: "center",
         justifyContent: "flex-end",
+        marginBottom: 8,
     }
 });
 

@@ -1,13 +1,24 @@
-import React from "react";
-import { Text } from "react-native";
+import React, { useContext, useState, useEffect } from "react";
+import { Text, View } from "react-native";
 import styles from "./styles";
+import { stateContext, dispatchContext } from "../../../../contexts";
 
 // Итог
 
 const CartTotal = (props) =>
 {
+    const context = useContext(stateContext);
+    const dispatch = useContext(dispatchContext);
+    
+    useEffect( () =>
+    {
+        dispatch({type: "ComputeTotalPrice"});
+    }, []);
+
     return (
-        <Text>Итого: 130$</Text>
+        <View style={styles.container}>
+            <Text style={styles.text}>Итого: {context.cartTotalPrice}$</Text>
+        </View>
     );
 }
 
