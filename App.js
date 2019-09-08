@@ -96,7 +96,7 @@ const NotYoursNavigator = createBottomTabNavigator( {
 		
 },
 {
-	initialRouteName : "CategoryList"
+	initialRouteName : "Cart"
   } );
 
 const AppContainer = createAppContainer(NotYoursNavigator);

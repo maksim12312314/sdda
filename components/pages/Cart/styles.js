@@ -1,19 +1,41 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, PixelRatio  } from "react-native";
+
+// CART PAGE STYLES
+
+let { width, height } = Dimensions.get('window');
+width = PixelRatio.getPixelSizeForLayoutSize(width);
+//height = PixelRatio.getPixelSizeForLayoutSize(height);
+
+// console.log(PixelRatio.getPixelSizeForLayoutSize(width));
 
 const styles = StyleSheet.create({
-    view: {
-    },
+  
     container: {
+        flex: 1,
         flexDirection: "column",
+        justifyContent: "flex-start",
         alignItems: "center",
-        height: Dimensions.get("window").height,
+        
     },
+    
+    
     items: {
         justifyContent: "center",
+        alignItems: "center"
     },
     icon: {
         
     },
+    itemsBlock:{
+        
+        flexDirection: "column",
+        
+        
+        
+        
+  
+        
+    }
 });
 
 export default styles;
