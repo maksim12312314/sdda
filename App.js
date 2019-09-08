@@ -7,6 +7,7 @@ import { AppRegistry } from 'react-native';
 import { name as appName } from "./app.json";
 import { createAppContainer,} from "react-navigation";
 import {createBottomTabNavigator} from "react-navigation-tabs";
+import DeliveryDetails from './components/Delivery/index';
 
 Math.clamp = function(num, min, max) {
 	return this.min(this.max(num, min), max);
@@ -79,7 +80,7 @@ const initialState = {
 
 const NotYoursNavigator = createBottomTabNavigator( {
 	CategoryList: {  
-		screen: CategoryList,
+		screen: DeliveryDetails,
 		title: 'Category',
 		navigationOptions: {tabBarVisible:false}
 		},
