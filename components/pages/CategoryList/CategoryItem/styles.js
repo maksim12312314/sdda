@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
     },
     title: {
-        fontSize: 26,
+        fontSize: 22,
         color: "#fff",
         textAlign: "center",
     },

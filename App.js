@@ -3,9 +3,9 @@ import { stateContext, dispatchContext } from "./contexts";
 import CategoryList from "./components/pages/CategoryList/index";
 import Cart from "./components/pages/Cart/index";
 import Header from "./components/Header/index";
-import { AppRegistry } from 'react-native';
+import { AppRegistry, AsyncStorage } from 'react-native';
 import { name as appName } from "./app.json";
-import { createAppContainer,} from "react-navigation";
+import { createAppContainer } from "react-navigation";
 import {createBottomTabNavigator} from "react-navigation-tabs";
 
 Math.clamp = function(num, min, max) {
@@ -13,10 +13,19 @@ Math.clamp = function(num, min, max) {
 };
 
 AppRegistry.registerComponent(appName, ()=>App);
+
 const reducer = (state, action) =>
 {
 	switch (action.type)
 	{
+		case "SetCategoriesList":
+		{
+			const newState = {...state};
+			
+			newState.categories = action.payload.productCategories.nodes;
+			
+			return newState;
+		}
 		case "ComputeTotalPrice":
 		{
 			const newState = {...state};
@@ -75,8 +84,10 @@ const initialState = {
 		},
 	],
 	cartTotalPrice: 0,
-};
 
+	categories: [],
+};
+console.log(initialState.categories)
 const NotYoursNavigator = createBottomTabNavigator( {
 	CategoryList: {  
 		screen: CategoryList,
@@ -96,8 +107,8 @@ const NotYoursNavigator = createBottomTabNavigator( {
 		
 },
 {
-	initialRouteName : "Cart"
-  } );
+	initialRouteName : "CategoryList"
+});
 
 const AppContainer = createAppContainer(NotYoursNavigator);
 
