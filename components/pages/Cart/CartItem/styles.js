@@ -1,33 +1,20 @@
-import { StyleSheet, Dimensions, PixelRatio  } from "react-native";
-
-let { width, height } = Dimensions.get('window');
-width = PixelRatio.getPixelSizeForLayoutSize(width);
-console.log(PixelRatio.getPixelSizeForLayoutSize(120))
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
-       
-       
         flexDirection: "row",
         justifyContent: "center",
-        alignItems: "center"
-        
-        
+        alignItems: "center",
     },
     item_name: {
-        
         color: "#FFF",
         fontSize: 16,
         width: 150,
-       
     },
     item_price: {
-
         color: "#FFF",
         fontSize: 16,
         marginHorizontal: 8,
-        
-        
     },
     item_count: {
         color: "#FFF",
@@ -38,9 +25,7 @@ const styles = StyleSheet.create({
     right: {
         width: 120,
         flexDirection: "row",
-                
         alignItems: "center",
-        
     }
 });
 
