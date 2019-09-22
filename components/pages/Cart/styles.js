@@ -1,19 +1,24 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
+
+// CART PAGE STYLES
 
 const styles = StyleSheet.create({
-    view: {
-    },
     container: {
+        flex: 1,
         flexDirection: "column",
+        justifyContent: "flex-start",
         alignItems: "center",
-        height: Dimensions.get("window").height,
     },
     items: {
         justifyContent: "center",
+        alignItems: "center"
     },
     icon: {
         
     },
+    itemsBlock: {
+        flexDirection: "column",
+    }
 });
 
 export default styles;

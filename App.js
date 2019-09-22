@@ -3,20 +3,30 @@ import { stateContext, dispatchContext } from "./contexts";
 import CategoryList from "./components/pages/CategoryList/index";
 import Cart from "./components/pages/Cart/index";
 import Header from "./components/Header/index";
-import { AppRegistry } from 'react-native';
+import { AppRegistry, AsyncStorage } from 'react-native';
 import { name as appName } from "./app.json";
-import { createAppContainer,} from "react-navigation";
+import { createAppContainer } from "react-navigation";
 import {createBottomTabNavigator} from "react-navigation-tabs";
+import DeliveryDetails from './components/Delivery/index';
 
 Math.clamp = function(num, min, max) {
 	return this.min(this.max(num, min), max);
 };
 
 AppRegistry.registerComponent(appName, ()=>App);
+
 const reducer = (state, action) =>
 {
 	switch (action.type)
 	{
+		case "SetCategoriesList":
+		{
+			const newState = {...state};
+			
+			newState.categories = action.payload.productCategories.nodes;
+			
+			return newState;
+		}
 		case "ComputeTotalPrice":
 		{
 			const newState = {...state};
@@ -63,23 +73,25 @@ const initialState = {
 	cartItems: [
 		{
 			id: 15,
-			count: 2,
+			count: 99,
 			price: 40,
 			name: "КрАлик жОский",
 		},
 		{
 			id: 16,
-			count: 3,
+			count: 99,
 			price: 80,
 			name: "КрАлик лехчи",
 		},
 	],
 	cartTotalPrice: 0,
-};
 
+	categories: [],
+};
+console.log(initialState.categories)
 const NotYoursNavigator = createBottomTabNavigator( {
 	CategoryList: {  
-		screen: CategoryList,
+		screen: DeliveryDetails,
 		title: 'Category',
 		navigationOptions: {tabBarVisible:false}
 		},
@@ -97,7 +109,7 @@ const NotYoursNavigator = createBottomTabNavigator( {
 },
 {
 	initialRouteName : "CategoryList"
-  } );
+});
 
 const AppContainer = createAppContainer(NotYoursNavigator);
 
