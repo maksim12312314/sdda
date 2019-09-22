@@ -100,11 +100,6 @@ const NotYoursNavigator = createBottomTabNavigator( {
 		title: 'Cart',
 		navigationOptions: {tabBarVisible:false}
 	},
-	Head: {
-		screen: Header,
-		title: 'Head',
-		navigationOptions: {tabBarVisible:false}
-	},
 		
 },
 {

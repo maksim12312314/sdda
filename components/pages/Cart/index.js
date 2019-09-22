@@ -7,6 +7,7 @@ import CartIcon from "./CartIcon";
 import CartItem from "./CartItem";
 import CartTotal from "./CartTotal";
 import styles from "./styles";
+import Header from "../../Header/index";
 
 // Корзина
 
@@ -45,7 +46,7 @@ const Cart = (props) =>
               }}
                 locations={[0, 1.0]} 
                 colors={["#E81C1C", "#E4724F"]}/>
-                
+                <Header {...props}/>
                 <CartIcon style={styles.icon}/>
 
                 
