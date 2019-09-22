@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { ScrollView, View, Text, ActivityIndicator } from "react-native";
+import { ScrollView, View, Text, ActivityIndicator, AsyncStorage } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { stateContext, dispatchContext } from "../../../contexts";
 import CategoryItem from "./CategoryItem";
@@ -18,10 +18,23 @@ const CategoryList = (props) =>
 	
 	const [error, setError] = useState(false);
 
-    useEffect( () =>
+    useEffect(  () =>
     {
         if ( !state.categories.length )
         {
+            var categories;
+            ( async () =>
+            {
+                categories = await AsyncStorage.getItem("categoryList");
+                
+                if ( categories )
+                {
+                    categories = JSON.parse(categories);
+                    dispatch({type: "SetCategoriesList", payload: categories})
+                    console.log("TEST", categories);
+                }
+            })();
+            
             fetch(`${address}graphql`, {
                 method: 'POST',
                 headers: {
@@ -46,7 +59,14 @@ const CategoryList = (props) =>
                 }),
                 })
 				.then(res => res.json())
-				.then( ({data}) => dispatch({type: "SetCategoriesList", payload: data}) )
+                .then( ({data}) => 
+                    {
+                        ( async () =>
+                        {
+                            dispatch({type: "SetCategoriesList", payload: data});
+                            await AsyncStorage.setItem("categoryList", JSON.stringify(data));
+                        })()
+                    })
                 .catch(err => setError(true))
 
         }
@@ -61,10 +81,10 @@ const CategoryList = (props) =>
                 colors={['#078998', '#65B7B9']}>
 					<Header {...props}/>
                     <View style={styles.categorylist}>
-						{ state.categories.length ?
+						{ state?.categories?.length ?
 							state.categories.map( (v, k) =>
 							{
-								return <CategoryItem name={v.name} id={v.id} imageUrl={v.image.mediaDetails.file} key={k}/>
+								return <CategoryItem name={v.name} id={v.id} imageUrl={v?.image?.mediaDetails?.file} key={k}/>
 							})
 						: error ? <Text style={styles.error}>Произошла ошибка при подключении. Проверьте интернет соединение и повторите попытку.</Text>
 							: <ActivityIndicator style={styles.loading} size="large" color="#fff"/>

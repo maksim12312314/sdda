@@ -17,6 +17,6 @@ class Config
 }
 
 const config = new Config();
-config.setCell("StoreAddress", "http://192.168.1.215/");
+config.setCell("StoreAddress", "http://192.168.0.104/");
 
 export default config;

@@ -8,10 +8,8 @@ import { name as appName } from "./app.json";
 import { createAppContainer } from "react-navigation";
 import {createBottomTabNavigator} from "react-navigation-tabs";
 import DeliveryDetails from './components/Delivery/index';
+import * as hehe from './utils';
 
-Math.clamp = function(num, min, max) {
-	return this.min(this.max(num, min), max);
-};
 
 AppRegistry.registerComponent(appName, ()=>App);
 
@@ -24,6 +22,7 @@ const reducer = (state, action) =>
 			const newState = {...state};
 			
 			newState.categories = action.payload.productCategories.nodes;
+			console.log("TEST1", action.payload.productCategories.nodes)
 			
 			return newState;
 		}
@@ -88,10 +87,10 @@ const initialState = {
 
 	categories: [],
 };
-console.log(initialState.categories)
+
 const NotYoursNavigator = createBottomTabNavigator( {
 	CategoryList: {  
-		screen: DeliveryDetails,
+		screen: CategoryList,
 		title: 'Category',
 		navigationOptions: {tabBarVisible:false}
 		},
