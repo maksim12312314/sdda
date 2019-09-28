@@ -104,6 +104,11 @@ const NotYoursNavigator = createBottomTabNavigator( {
 		title: 'Head',
 		navigationOptions: {tabBarVisible:false}
 	},
+	Orders: {
+		screen: Orders,
+		title: 'Orders',
+		navigationOptions: {tabBarVisible:false}
+	},
 		
 },
 {
