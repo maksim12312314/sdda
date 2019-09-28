@@ -1,16 +1,38 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import styles from "./styles";
+import Header from "./../../Header/index";
+import { LinearGradient } from 'expo-linear-gradient';
+import ProductsItem from './ProductsItem/index';
 
 // Список товаров той или иной категории
-// Даня, ГДЕ?
 
 const ProductsList = (props) =>
 {
     return (
-        <View style={styles.view}>
-			<Text>Если ты видишь этот текст значит всё работает нормально</Text>
-		</View>
+        
+            <ScrollView style={styles.view}>
+                <LinearGradient
+                    style={styles.productslist}
+                    locations={[0, 1.0]} 
+                    colors={['#078998', '#65B7B9']}>
+                    <Header {...props}/>
+                    <View style={styles.items}>
+                    <View style={styles.headTitle}>
+                        <Text style={styles.textTitle}>Кралики</Text>
+                    </View>
+                    
+                        <ProductsItem/>
+                        <ProductsItem/>
+                        <ProductsItem/>
+                        <ProductsItem/>
+                        <ProductsItem/>
+                        <ProductsItem/>
+                        <ProductsItem/>
+                    </View>
+                </LinearGradient>
+            </ScrollView>
+
     );
 }
 
