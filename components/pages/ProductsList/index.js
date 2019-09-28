@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import styles from "./styles";
 
 // Список товаров той или иной категории
+// Даня, ГДЕ?
 
 const ProductsList = (props) =>
 {

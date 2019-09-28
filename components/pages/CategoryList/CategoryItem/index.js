@@ -1,17 +1,26 @@
-import React from "react";
-import { ScrollView, Text, Image, View } from "react-native";
+import React, { useEffect } from "react";
+import { Text, Image, TouchableOpacity } from "react-native";
 import styles from "./styles";
+import config from "../../../../config";
+//import { TouchableOpacity } from "react-native-gesture-handler";
+
+const address = config.getCell("StoreAddress");
 
 const CategoryItem = (props) =>
 {
+    const { name, imageUrl, id } = props;
+    
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container}>
             <Image
                 style={styles.picture}
-                source={{uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg=='}}
+                source={{
+                    uri: imageUrl ? `${address}wp-content/uploads/` + imageUrl
+                                  :  `${address}wp-content/uploads/woocommerce-placeholder.png`
+                }}
             />
-            <Text style={styles.title}>КрАлики</Text>
-        </View>
+            <Text style={styles.title}>{name}</Text>
+        </TouchableOpacity>
     );
 }
 

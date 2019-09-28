@@ -10,31 +10,52 @@ import styles from "./styles";
 
 // Корзина
 
+const ItemsBlock = (props)=>{
+
+    const state = useContext(stateContext);
+    
+    
+    return (
+        <View style={styles.itemsBlock}> 
+            { !state.cartItems.length
+                ? <Text>Товаров нет</Text>
+                : state.cartItems.map( (v, i) =>
+                {
+                    return <CartItem key={i} data={v}/>
+                }) }
+            
+        </View>
+    )
+}
+
 const Cart = (props) =>
 {
     const state = useContext(stateContext);
     const dispatch = useContext(dispatchContext);
     
     return (
-        <ScrollView style={styles.view}>
+        <View style={styles.container}>
             <LinearGradient
-                style={styles.container}
+               style={{
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0
+              }}
                 locations={[0, 1.0]} 
-                colors={["#E81C1C", "#E4724F"]}>
+                colors={["#E81C1C", "#E4724F"]}/>
                 
                 <CartIcon style={styles.icon}/>
 
-                <View style={styles.items}>
-                    { !state.cartItems.length
-                        ? <Text>Товаров нет</Text>
-                        : state.cartItems.map( (v, i) =>
-                        {
-                            return <CartItem key={i} data={v}/>
-                        }) }
-                    <CartTotal/>
-                </View>
-            </LinearGradient>
-		</ScrollView>
+                
+                <ItemsBlock/>
+          
+                   
+                
+                <CartTotal/>
+            
+		</View>
     );
 }
 
