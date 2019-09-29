@@ -3,16 +3,16 @@ import { stateContext, dispatchContext } from "./contexts";
 import CategoryList from "./components/pages/CategoryList/index";
 import Cart from "./components/pages/Cart/index";
 import Header from "./components/Header/index";
-import { AppRegistry, AsyncStorage } from 'react-native';
+import ProductList from "./components/pages/ProductsList/index";
+import { AppRegistry } from 'react-native';
 import { name as appName } from "./app.json";
-import { createAppContainer } from "react-navigation";
+import { createAppContainer,} from "react-navigation";
 import {createBottomTabNavigator} from "react-navigation-tabs";
 import DeliveryDetails from './components/Delivery/index';
 import * as hehe from './utils';
 
 
 AppRegistry.registerComponent(appName, ()=>App);
-
 const reducer = (state, action) =>
 {
 	switch (action.type)
@@ -72,20 +72,18 @@ const initialState = {
 	cartItems: [
 		{
 			id: 15,
-			count: 99,
+			count: 2,
 			price: 40,
 			name: "КрАлик жОский",
 		},
 		{
 			id: 16,
-			count: 99,
+			count: 3,
 			price: 80,
 			name: "КрАлик лехчи",
 		},
 	],
 	cartTotalPrice: 0,
-
-	categories: [],
 };
 
 const NotYoursNavigator = createBottomTabNavigator( {
@@ -99,6 +97,11 @@ const NotYoursNavigator = createBottomTabNavigator( {
 		title: 'Cart',
 		navigationOptions: {tabBarVisible:false}
 	},
+	ProductList: {
+		screen: ProductList,
+		title: 'ProductList',
+		navigationOptions: {tabBarVisible:false}
+	},
 	Head: {
 		screen: Header,
 		title: 'Head',
@@ -107,8 +110,8 @@ const NotYoursNavigator = createBottomTabNavigator( {
 		
 },
 {
-	initialRouteName : "CategoryList"
-});
+	initialRouteName : "ProductList"
+  } );
 
 const AppContainer = createAppContainer(NotYoursNavigator);
 

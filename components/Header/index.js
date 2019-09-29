@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
         color:"#fff",
         textAlign:"center",
         marginTop:35,
-        marginLeft:90,
+        marginLeft:80,
+        marginRight:30,
         marginBottom:30,
     },
     icon: {
@@ -29,6 +30,13 @@ const Header = (props) =>
     const {navigation} = props;
     return (
         <View style={styles.container}>
+            <Svg  onPress={()=>{navigation.goBack()}} style={styles.iconBack} width="40.5" height="31.5" viewBox="0 0 320 512">
+                <Path id="chevron-left-solid"
+                data-name="chevron left-solid"
+                 d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"
+                 transform="translate(0 -2.25)"
+                 fill="#fff"/>
+            </Svg>
         <Text style={styles.text}>Заказы</Text>
         <Svg onPress={()=>{navigation.navigate('Cart')}} style={styles.icon} width="40.5" height="31.5" viewBox="0 0 40.5 31.5">
             <Path id="Icon_awesome-shopping-basket"
