@@ -8,16 +8,24 @@ import { AppRegistry } from 'react-native';
 import { name as appName } from "./app.json";
 import { createAppContainer,} from "react-navigation";
 import {createBottomTabNavigator} from "react-navigation-tabs";
+import DeliveryDetails from './components/Delivery/index';
+import * as hehe from './utils';
 
-Math.clamp = function(num, min, max) {
-	return this.min(this.max(num, min), max);
-};
 
 AppRegistry.registerComponent(appName, ()=>App);
 const reducer = (state, action) =>
 {
 	switch (action.type)
 	{
+		case "SetCategoriesList":
+		{
+			const newState = {...state};
+			
+			newState.categories = action.payload.productCategories.nodes;
+			console.log("TEST1", action.payload.productCategories.nodes)
+			
+			return newState;
+		}
 		case "ComputeTotalPrice":
 		{
 			const newState = {...state};
