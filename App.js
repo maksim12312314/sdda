@@ -17,12 +17,55 @@ const reducer = (state, action) =>
 {
 	switch (action.type)
 	{
+		case "SetCategoryPageId":
+		{
+			const newState = {...state};
+			newState.currentCategory = action.payload;
+			return newState;
+		}
+		case "AddToCart":
+		{
+			const newState = {...state};
+
+			const containing = newState.cartItems.reduce( (a,e,i,m)=>{
+
+				if (e.id == action.payload.id)
+					return i;
+
+			}, newState.cartItems.length )
+
+			// console.log(newState.cartItems[containing])
+			// console.log(action.payload)
+			// console.log(newState?.cartItems[containing]?.count)
+			// console.log(action.payload.count)
+
+			if ( action.payload )
+			{
+				if ( !newState.cartItems[containing] )
+				{
+					newState.cartItems.push(action.payload)
+					console.log("sdasdsaas", newState.cartItems)
+				}
+				else
+					newState.cartItems[containing].count += action.payload.count;
+			}
+
+
+			return newState;
+		}
+		case "SetProductsList":
+		{
+			const newState = {...state};
+			
+			newState.products = action.payload.products.nodes;
+			
+			return newState;
+		}
 		case "SetCategoriesList":
 		{
 			const newState = {...state};
 			
 			newState.categories = action.payload.productCategories.nodes;
-			console.log("TEST1", action.payload.productCategories.nodes)
 			
 			return newState;
 		}
@@ -70,20 +113,10 @@ const reducer = (state, action) =>
 
 const initialState = {
 	cartItems: [
-		{
-			id: 15,
-			count: 2,
-			price: 40,
-			name: "КрАлик жОский",
-		},
-		{
-			id: 16,
-			count: 3,
-			price: 80,
-			name: "КрАлик лехчи",
-		},
+		
 	],
 	cartTotalPrice: 0,
+	currentCategory: -1,
 };
 
 const NotYoursNavigator = createBottomTabNavigator( {
@@ -110,7 +143,7 @@ const NotYoursNavigator = createBottomTabNavigator( {
 		
 },
 {
-	initialRouteName : "ProductList"
+	initialRouteName : "CategoryList"
   } );
 
 const AppContainer = createAppContainer(NotYoursNavigator);

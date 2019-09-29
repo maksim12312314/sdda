@@ -18,6 +18,18 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
         borderColor: "#FFF",
     },
+    productslist: {
+        minHeight: Dimensions.get("window").height,
+    },
+    loading: {
+        alignSelf: "center",
+        justifyContent: "center",
+    },
+    error: {
+        fontSize: 18,
+        color: "#fff",
+        textAlign: "center",
+    },
 });
 
 export default styles;
