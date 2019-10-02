@@ -50,7 +50,7 @@ const ProductsItem = (props) =>
                         </TouchableOpacity>
                 </View>
                     <View>
-                        <Text>{data.description}</Text>
+                        <Text style={styles.description}>{data.description}</Text>
                     </View>
         </View>
             
