@@ -65,6 +65,10 @@ const styles = StyleSheet.create({
         color: "#078998",
         
     },
+    description:
+    {
+        color: "#ffffff",
+    }
 });
 
 export default styles;
