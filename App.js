@@ -120,28 +120,25 @@ const NotYoursNavigator = createBottomTabNavigator( {
 	CategoryList: {  
 		screen: CategoryList,
 		title: 'Category',
-		navigationOptions: {tabBarVisible:false}
 		},
 	Cart: {
 		screen: Cart,
 		title: 'Cart',
-		navigationOptions: {tabBarVisible:false}
 	},
 	ProductList: {
 		screen: ProductList,
 		title: 'ProductList',
-		navigationOptions: {tabBarVisible:false}
 	},
-	Head: {
-		screen: Header,
-		title: 'Head',
-		navigationOptions: {tabBarVisible:false}
-	},
-
-		
+	Orders: {
+		screen: Orders,
+		title: 'Orders',
+	},		
 },
 {
-	initialRouteName : "CategoryList"
+	initialRouteName : "CategoryList",
+	defaultNavigationOptions: {
+		tabBarVisible:false
+	  },
   } );
 
 const AppContainer = createAppContainer(NotYoursNavigator);
