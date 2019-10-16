@@ -15,8 +15,10 @@ const CategoryItem = (props) =>
     return (
         <TouchableOpacity style={styles.container} onPress={(e) =>
         {
-            navigation.navigate("ProductList");
+            
             dispatch({type: "SetCategoryPageId", payload: {id, name} });
+            navigation.navigate("ProductList");
+            
         }}>
             <Image
                 style={styles.picture}
