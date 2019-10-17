@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
 });
 
 
-
+/** Компонент списка заказов */
 const Orders = (props) =>
 {
     return (

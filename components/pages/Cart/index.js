@@ -9,8 +9,7 @@ import CartTotal from "./CartTotal";
 import styles from "./styles";
 import Header from "../../Header/index";
 
-// Корзина
-
+/** Компонент блока товаров  */
 const ItemsBlock = (props)=>{
 
     const state = useContext(stateContext);
@@ -29,6 +28,7 @@ const ItemsBlock = (props)=>{
     )
 }
 
+/** Компонент корзины */
 const Cart = (props) =>
 {
     const state = useContext(stateContext);

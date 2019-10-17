@@ -1,3 +1,6 @@
+/**
+ * Метод сравнения двух объектов
+ */
 Object.equals = ( x, y ) =>
 {
     if ( x === y ) return true;
