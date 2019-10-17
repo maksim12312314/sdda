@@ -1,17 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Text, Image, TouchableOpacity } from "react-native";
 import styles from "./styles";
 import config from "../../../../config";
+import { dispatchContext, stateContext } from "../../../../contexts";
 //import { TouchableOpacity } from "react-native-gesture-handler";
 
 const address = config.getCell("StoreAddress");
 
 const CategoryItem = (props) =>
 {
-    const { name, imageUrl, id } = props;
-    
+    const { name, imageUrl, navigation, id } = props;
+    const dispatch = useContext(dispatchContext);
+
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={(e) =>
+        {
+            
+            dispatch({type: "SetCategoryPageId", payload: {id, name} });
+            navigation.navigate("ProductList");
+            
+        }}>
             <Image
                 style={styles.picture}
                 source={{

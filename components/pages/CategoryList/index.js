@@ -13,14 +13,15 @@ const address = config.getCell("StoreAddress");
 
 const CategoryList = (props) =>
 {
+    const { navigation } = props;
     const state = useContext(stateContext);
     const dispatch = useContext(dispatchContext);
 	
 	const [error, setError] = useState(false);
 
-    useEffect(  () =>
+    useEffect( () =>
     {
-        if ( !state.categories.length )
+        if ( !state?.categories?.length )
         {
             var categories;
             ( async () =>
@@ -31,7 +32,6 @@ const CategoryList = (props) =>
                 {
                     categories = JSON.parse(categories);
                     dispatch({type: "SetCategoriesList", payload: categories})
-                    console.log("TEST", categories);
                 }
             })();
             
@@ -84,7 +84,7 @@ const CategoryList = (props) =>
 						{ state?.categories?.length ?
 							state.categories.map( (v, k) =>
 							{
-								return <CategoryItem name={v.name} id={v.id} imageUrl={v?.image?.mediaDetails?.file} key={k}/>
+								return <CategoryItem navigation={navigation} name={v.name} id={v.productCategoryId} imageUrl={v?.image?.mediaDetails?.file} key={k}/>
 							})
 						: error ? <Text style={styles.error}>Произошла ошибка при подключении. Проверьте интернет соединение и повторите попытку.</Text>
 							: <ActivityIndicator style={styles.loading} size="large" color="#fff"/>

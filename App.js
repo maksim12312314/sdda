@@ -3,26 +3,66 @@ import { stateContext, dispatchContext } from "./contexts";
 import CategoryList from "./components/pages/CategoryList/index";
 import Cart from "./components/pages/Cart/index";
 import Header from "./components/Header/index";
-import { AppRegistry, AsyncStorage } from 'react-native';
+import ProductList from "./components/pages/ProductsList/index";
+import { AppRegistry } from 'react-native';
 import { name as appName } from "./app.json";
-import { createAppContainer } from "react-navigation";
+import { createAppContainer,} from "react-navigation";
 import {createBottomTabNavigator} from "react-navigation-tabs";
 import DeliveryDetails from './components/Delivery/index';
 import * as hehe from './utils';
 
 
 AppRegistry.registerComponent(appName, ()=>App);
-
 const reducer = (state, action) =>
 {
 	switch (action.type)
 	{
+		case "SetCategoryPageId":
+		{
+			const newState = {...state};
+			newState.currentCategory = action.payload;
+			return newState;
+		}
+		case "AddToCart":
+		{
+			const newState = {...state};
+
+			const containing = newState.cartItems.reduce( (a,e,i,m)=>{
+
+				if (e.id == action.payload.id)
+					return i;
+
+			}, newState.cartItems.length )
+
+			
+
+			if ( action.payload )
+			{
+				if ( !newState.cartItems[containing] )
+				{
+					newState.cartItems.push(action.payload)
+		
+				}
+				else
+					newState.cartItems[containing].count += action.payload.count;
+			}
+
+
+			return newState;
+		}
+		case "SetProductsList":
+		{
+			const newState = {...state};
+			
+			newState.products = {...newState.products, [action.id]: action.payload.products.nodes};
+			
+			return newState;
+		}
 		case "SetCategoriesList":
 		{
 			const newState = {...state};
 			
 			newState.categories = action.payload.productCategories.nodes;
-			console.log("TEST1", action.payload.productCategories.nodes)
 			
 			return newState;
 		}
@@ -70,50 +110,36 @@ const reducer = (state, action) =>
 
 const initialState = {
 	cartItems: [
-		{
-			id: 15,
-			count: 99,
-			price: 40,
-			name: "КрАлик жОский",
-		},
-		{
-			id: 16,
-			count: 99,
-			price: 80,
-			name: "КрАлик лехчи",
-		},
+		
 	],
 	cartTotalPrice: 0,
-
-	categories: [],
+	currentCategory: -1,
 };
 
 const NotYoursNavigator = createBottomTabNavigator( {
 	CategoryList: {  
 		screen: CategoryList,
 		title: 'Category',
-		navigationOptions: {tabBarVisible:false}
 		},
 	Cart: {
 		screen: Cart,
 		title: 'Cart',
-		navigationOptions: {tabBarVisible:false}
 	},
-	Head: {
-		screen: Header,
-		title: 'Head',
-		navigationOptions: {tabBarVisible:false}
+	ProductList: {
+		screen: ProductList,
+		title: 'ProductList',
 	},
 	Orders: {
 		screen: Orders,
 		title: 'Orders',
-		navigationOptions: {tabBarVisible:false}
-	},
-		
+	},		
 },
 {
-	initialRouteName : "CategoryList"
-});
+	initialRouteName : "CategoryList",
+	defaultNavigationOptions: {
+		tabBarVisible:false
+	  },
+  } );
 
 const AppContainer = createAppContainer(NotYoursNavigator);
 
