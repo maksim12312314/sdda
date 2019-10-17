@@ -129,10 +129,6 @@ const NotYoursNavigator = createBottomTabNavigator( {
 		screen: ProductList,
 		title: 'ProductList',
 	},
-	Orders: {
-		screen: Orders,
-		title: 'Orders',
-	},		
 },
 {
 	initialRouteName : "CategoryList",

@@ -52,6 +52,11 @@ const styles = StyleSheet.create({
         color: "#fff",
         marginLeft: 20,
     },
+    picker:
+    {
+        width: 180,
+        color: "#fff",
+    },
     button: {
         paddingHorizontal: 40,
         paddingVertical: 5,
@@ -65,7 +70,7 @@ const styles = StyleSheet.create({
         color: "#078998",
         
     },
-    description:
+    descriptionText:
     {
         color: "#ffffff",
     }

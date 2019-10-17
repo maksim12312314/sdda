@@ -1,8 +1,9 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import { ScrollView, Text, Image, View, TouchableOpacity, AsyncStorage } from "react-native";
 import styles from "./styles";
 import config from "../../../../config";
 import { stateContext, dispatchContext } from "../../../../contexts";
+import {Picker} from "native-base";
 
 const address = config.getCell("StoreAddress");
 
@@ -13,6 +14,7 @@ const ProductsItem = (props) =>
     const {data} = props;
     const state = useContext(stateContext);
     const dispatch = useContext(dispatchContext);
+    const [selected, setSelected] = useState("key1");
 
     return (
         <View style={styles.container}>
@@ -27,9 +29,32 @@ const ProductsItem = (props) =>
                     />
                 </View>
                     <View style={styles.right}>
-                    <Text>Количество 14</Text>
-                    <Text>Количество 14</Text>
-                    <Text>Количество 14</Text>
+                    <Picker
+                            note
+                            mode="dropdown"
+                            style={styles.picker}
+                            selectedValue={selected}
+                            onValueChange={(value)=>{setSelected(value)}}
+                        >
+                            <Picker.Item label="Wallet" value="key0" />
+                            <Picker.Item label="ATM Card" value="key1" />
+                            <Picker.Item label="Debit Card" value="key2" />
+                            <Picker.Item label="Credit Card" value="key3" />
+                            <Picker.Item label="Net Banking" value="key4" />
+                        </Picker>
+                        <Picker
+                            note
+                            mode="dropdown"
+                            style={styles.picker}
+                            selectedValue={selected}
+                            onValueChange={(value)=>{setSelected(value)}}
+                        >
+                            <Picker.Item label="Wallet" value="key0" />
+                            <Picker.Item label="ATM Card" value="key1" />
+                            <Picker.Item label="Debit Card" value="key2" />
+                            <Picker.Item label="Credit Card" value="key3" />
+                            <Picker.Item label="Net Banking" value="key4" />
+                        </Picker>
                     </View>
             </View>
                 <View style={styles.bottom}>
@@ -50,7 +75,7 @@ const ProductsItem = (props) =>
                         </TouchableOpacity>
                 </View>
                     <View>
-                        <Text style={styles.description}>{data.description}</Text>
+                        <Text style={styles.descriptionText}>{data.description}</Text>
                     </View>
         </View>
             
