@@ -19,7 +19,7 @@ const ProductsList = (props) =>
     
     useEffect( () =>
     {
-        console.log("id", state.currentCategory)
+        
         fetch(`${address}graphql`, {
             method: 'POST',
             headers: {
@@ -49,10 +49,10 @@ const ProductsList = (props) =>
             .then( ({data}) => 
                 {
                     console.log(data)
-                    dispatch({type: "SetProductsList", payload: data});
+                    dispatch({type: "SetProductsList", payload: data, id: state.currentCategory.id});
                 })
             .catch(err => setError(true))
-    }, []);
+    }, [state.currentCategory]);
 
     return (
             <ScrollView style={styles.view}>
@@ -61,13 +61,13 @@ const ProductsList = (props) =>
                     locations={[0, 1.0]} 
                     colors={['#078998', '#65B7B9']}>
                     <Header {...props}/>
-                    { state.products ?
+                    { state.products && state.products[state.currentCategory.id] ?
                     <View style={styles.items}>
                         <View style={styles.headTitle}>
                             <Text style={styles.textTitle}>{state.currentCategory.name}</Text>
                         </View>
 
-                        {state.products.map( (v, i) =>
+                        {state.products[state.currentCategory.id].map( (v, i) =>
                             {
                                 return <ProductsItem key={i} data={v}/>
                             })

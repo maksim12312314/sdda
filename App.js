@@ -34,17 +34,14 @@ const reducer = (state, action) =>
 
 			}, newState.cartItems.length )
 
-			// console.log(newState.cartItems[containing])
-			// console.log(action.payload)
-			// console.log(newState?.cartItems[containing]?.count)
-			// console.log(action.payload.count)
+			
 
 			if ( action.payload )
 			{
 				if ( !newState.cartItems[containing] )
 				{
 					newState.cartItems.push(action.payload)
-					console.log("sdasdsaas", newState.cartItems)
+		
 				}
 				else
 					newState.cartItems[containing].count += action.payload.count;
@@ -57,7 +54,7 @@ const reducer = (state, action) =>
 		{
 			const newState = {...state};
 			
-			newState.products = action.payload.products.nodes;
+			newState.products = {...newState.products, [action.id]: action.payload.products.nodes};
 			
 			return newState;
 		}
@@ -135,8 +132,7 @@ const NotYoursNavigator = createBottomTabNavigator( {
 	Orders: {
 		screen: Orders,
 		title: 'Orders',
-	},
-		
+	},		
 },
 {
 	initialRouteName : "CategoryList",
