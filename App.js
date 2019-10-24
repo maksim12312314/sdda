@@ -10,19 +10,35 @@ import { createAppContainer,} from "react-navigation";
 import {createBottomTabNavigator} from "react-navigation-tabs";
 import DeliveryDetails from './components/Delivery/index';
 import * as hehe from './utils';
+import Orders from "./components/Orders/index";
 
 
 AppRegistry.registerComponent(appName, ()=>App);
+
+/**
+ * Редюсер
+ * @param  {object} state - объект state
+ * @param  {object} action - объект action
+ */
 const reducer = (state, action) =>
 {
+	/**
+	 * Проверяет тип действия
+	 */
 	switch (action.type)
 	{
+		/**
+		 * Устанавливает id категории для текущей страницы
+		 */
 		case "SetCategoryPageId":
 		{
 			const newState = {...state};
 			newState.currentCategory = action.payload;
 			return newState;
 		}
+		/**
+		 * Заносит товар и его данные в state
+		 */
 		case "AddToCart":
 		{
 			const newState = {...state};
@@ -50,6 +66,9 @@ const reducer = (state, action) =>
 
 			return newState;
 		}
+		/**
+		 * Устанавливает список продуктов для текущей страницы
+		 */
 		case "SetProductsList":
 		{
 			const newState = {...state};
@@ -58,6 +77,9 @@ const reducer = (state, action) =>
 			
 			return newState;
 		}
+		/**
+		 * Устанавливает список категорий для текущей страницы
+		 */
 		case "SetCategoriesList":
 		{
 			const newState = {...state};
@@ -66,6 +88,9 @@ const reducer = (state, action) =>
 			
 			return newState;
 		}
+		/**
+		 * Расчитывает общую цену для корзины
+		 */
 		case "ComputeTotalPrice":
 		{
 			const newState = {...state};
@@ -77,6 +102,9 @@ const reducer = (state, action) =>
 			});
 			return newState;
 		}
+		/**
+		 * Минусует 1 товар из корзины
+		 */
 		case "minus":
 		{
 			const elem = state.cartItems.filter( (v, i) =>
@@ -90,6 +118,9 @@ const reducer = (state, action) =>
 			newState.cartItems[newState.cartItems.indexOf(elem[0])] = elem[0];
 			return newState;
 		}
+		/**
+		 * Плюсует 1 товар в корзину
+		 */
 		case "plus":
 		{
 			const elem = state.cartItems.filter( (v, i) =>
@@ -116,6 +147,9 @@ const initialState = {
 	currentCategory: -1,
 };
 
+/**
+ * Это очень красивая (нет) навигация
+ */
 const NotYoursNavigator = createBottomTabNavigator( {
 	CategoryList: {  
 		screen: CategoryList,
@@ -137,6 +171,7 @@ const NotYoursNavigator = createBottomTabNavigator( {
 	  },
   } );
 
+/**Контейнер приложения */
 const AppContainer = createAppContainer(NotYoursNavigator);
 
 const App = () =>

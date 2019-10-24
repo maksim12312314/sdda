@@ -7,16 +7,22 @@ import { dispatchContext, stateContext } from "../../../../contexts";
 
 const address = config.getCell("StoreAddress");
 
+/**Компонент категории */
 const CategoryItem = (props) =>
 {
+    // Получаем имя, url картинки, навигацию и id из props
     const { name, imageUrl, navigation, id } = props;
     const dispatch = useContext(dispatchContext);
 
     return (
         <TouchableOpacity style={styles.container} onPress={(e) =>
         {
-            
+            // Обрабатываем нажатие на иконку категории
+            // и устанавливаем id данной категории
+            // для отображения списка товаров
             dispatch({type: "SetCategoryPageId", payload: {id, name} });
+            
+            // Переходим к списку продуктов
             navigation.navigate("ProductList");
             
         }}>

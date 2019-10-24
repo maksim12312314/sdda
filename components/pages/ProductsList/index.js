@@ -9,17 +9,16 @@ import config from "../../../config";
 
 const address = config.getCell("StoreAddress");
 
-// Список товаров той или иной категории
-
+/**Список товаров той или иной категории */
 const ProductsList = (props) =>
 {
     const state = useContext(stateContext);
     const dispatch = useContext(dispatchContext);
     const [error, setError] = useState(false);
     
+    // Получаем данные от сервера
     useEffect( () =>
     {
-        
         fetch(`${address}graphql`, {
             method: 'POST',
             headers: {
@@ -48,9 +47,10 @@ const ProductsList = (props) =>
             .then(res => res.json())
             .then( ({data}) => 
                 {
-                    console.log(data)
+                    // Устанавливаем полученные данные
                     dispatch({type: "SetProductsList", payload: data, id: state.currentCategory.id});
                 })
+            // Иначе показываем ошибку
             .catch(err => setError(true))
     }, [state.currentCategory]);
 

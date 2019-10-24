@@ -7,8 +7,7 @@ import {Picker} from "native-base";
 
 const address = config.getCell("StoreAddress");
 
-// Список товаров той или иной категории
-
+/** Список товаров той или иной категории */
 const ProductsItem = (props) =>
 {
     const {data} = props;
@@ -61,7 +60,9 @@ const ProductsItem = (props) =>
                     <Text style={styles.price}>Цена: {data.price || "Бесплатно"}</Text>
                         <TouchableOpacity style={styles.button} onPress={ (e) =>
                         {
-                            console.log(data.price, parseInt(data.price))
+                            // Обрабатываем нажатие на кнопку "Купить"
+
+                            // Заносим данные
                             let payload = {
                                 id: data.productId,
                                 name: data.name,
@@ -69,6 +70,7 @@ const ProductsItem = (props) =>
                                 price: data.price ? data.price.match(/\d{1,5}.*\d*/)[0] : 0,
                                 stockQuantity: data.stockQuantity || 99,
                             }
+                            // Добавляем в корзину
                             dispatch({type: "AddToCart", payload:payload});
                         }}>
                             <Text style={styles.text_button}>Купить</Text>

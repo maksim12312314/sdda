@@ -3,8 +3,6 @@ import { Text, View } from "react-native";
 import Svg, {Path} from "react-native-svg";
 import { StyleSheet } from "react-native";
 
-// Шапочка приложения с навигацией
-
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
@@ -25,6 +23,7 @@ const styles = StyleSheet.create({
     },
 });
 
+/** Шапочка приложения с навигацией*/
 const Header = (props) =>
 {
     const {navigation} = props;
