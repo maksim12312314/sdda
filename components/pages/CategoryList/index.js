@@ -9,8 +9,7 @@ import config from "../../../config";
 
 const address = config.getCell("StoreAddress");
 
-// Список категорий товаров
-
+/**Список категорий товаров*/
 const CategoryList = (props) =>
 {
     const { navigation } = props;
@@ -19,6 +18,7 @@ const CategoryList = (props) =>
 	
 	const [error, setError] = useState(false);
 
+    // Получаем данные от сервера или хранилища
     useEffect( () =>
     {
         if ( !state?.categories?.length )
@@ -26,8 +26,10 @@ const CategoryList = (props) =>
             var categories;
             ( async () =>
             {
+                // Получаем список категорий с хранилища
                 categories = await AsyncStorage.getItem("categoryList");
                 
+                // И устанавливаем его если есть
                 if ( categories )
                 {
                     categories = JSON.parse(categories);

@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     },
 });
 
-
+/** Компонент текстового поля */
 const TextField = (props)=>{
 
     const [isFocused, setFocus] = useState(false);
@@ -109,16 +109,9 @@ const TextField = (props)=>{
 
 }
 
-
+/** Компонент деталей доставки */
 const DeliveryDetails = (props) =>
 {
-
-
-
-    
-
-    
-
     return (
         <>
         <LinearGradient style={styles.grad} locations={[0, 1.0]} colors={["#1DC44F", "#3BF3AE"]}/>
