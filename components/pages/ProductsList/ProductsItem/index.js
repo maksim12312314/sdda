@@ -7,13 +7,31 @@ import {Picker} from "native-base";
 
 const address = config.getCell("StoreAddress");
 
+const AttrPicker = (props) =>
+{
+    const {data, selected, onValueChange} = props;
+    console.log("sdas", data)
+    return (
+        <Picker
+            note
+            mode="dropdown"
+            style={styles.picker}
+            selectedValue={selected}
+            onValueChange={onValueChange}
+        >
+            {data.options.map( (v, i) => <Picker.Item label={v.name} key={i} value={i} />)}
+        </Picker>
+    )
+}
+
 /** Список товаров той или иной категории */
 const ProductsItem = (props) =>
 {
     const {data} = props;
     const state = useContext(stateContext);
     const dispatch = useContext(dispatchContext);
-    const [selected, setSelected] = useState("key1");
+    const [selected, setSelected] = useState({});
+    const itemAttributes = data?.attributes?.nodes || [];
 
     return (
         <View style={styles.container}>
@@ -28,32 +46,12 @@ const ProductsItem = (props) =>
                     />
                 </View>
                     <View style={styles.right}>
-                    <Picker
-                            note
-                            mode="dropdown"
-                            style={styles.picker}
-                            selectedValue={selected}
-                            onValueChange={(value)=>{setSelected(value)}}
-                        >
-                            <Picker.Item label="Wallet" value="key0" />
-                            <Picker.Item label="ATM Card" value="key1" />
-                            <Picker.Item label="Debit Card" value="key2" />
-                            <Picker.Item label="Credit Card" value="key3" />
-                            <Picker.Item label="Net Banking" value="key4" />
-                        </Picker>
-                        <Picker
-                            note
-                            mode="dropdown"
-                            style={styles.picker}
-                            selectedValue={selected}
-                            onValueChange={(value)=>{setSelected(value)}}
-                        >
-                            <Picker.Item label="Wallet" value="key0" />
-                            <Picker.Item label="ATM Card" value="key1" />
-                            <Picker.Item label="Debit Card" value="key2" />
-                            <Picker.Item label="Credit Card" value="key3" />
-                            <Picker.Item label="Net Banking" value="key4" />
-                        </Picker>
+                        {itemAttributes.map( (v, i) =>
+                            {
+                                return <AttrPicker data={v} key={i} onValueChange={(value)=>{}} selected={selected} />
+                            }
+                            )
+                        }
                     </View>
             </View>
                 <View style={styles.bottom}>
@@ -69,6 +67,9 @@ const ProductsItem = (props) =>
                                 count: 1,
                                 price: data.price ? data.price.match(/\d{1,5}.*\d*/)[0] : 0,
                                 stockQuantity: data.stockQuantity || 99,
+                                selectedVariants: [
+                                    "variantID"
+                                ]
                             }
                             // Добавляем в корзину
                             dispatch({type: "AddToCart", payload:payload});
