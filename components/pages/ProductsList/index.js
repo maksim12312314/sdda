@@ -34,11 +34,18 @@ const ProductsList = (props) =>
                                 price(format: FORMATTED)
                                 description
                                 image {
-                                    mediaDetails {
-                                        file
-                                    }
+                                  mediaDetails {
+                                    file
+                                  }
                                 }
-                            }
+                                attributes {
+                                  nodes {
+                                    name
+                                    attributeId
+                                    options
+                                  }
+                                }
+                              }
                         }
                     }
                 `,
