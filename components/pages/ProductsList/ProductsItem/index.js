@@ -1,10 +1,28 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import { ScrollView, Text, Image, View, TouchableOpacity, AsyncStorage } from "react-native";
 import styles from "./styles";
 import config from "../../../../config";
 import { stateContext, dispatchContext } from "../../../../contexts";
+import {Picker} from "native-base";
 
 const address = config.getCell("StoreAddress");
+
+const AttrPicker = (props) =>
+{
+    const {data, selected, onValueChange} = props;
+    console.log("sdas", data)
+    return (
+        <Picker
+            note
+            mode="dropdown"
+            style={styles.picker}
+            selectedValue={selected}
+            onValueChange={onValueChange}
+        >
+            {data.options.map( (v, i) => <Picker.Item label={v.name} key={i} value={i} />)}
+        </Picker>
+    )
+}
 
 /** Список товаров той или иной категории */
 const ProductsItem = (props) =>
@@ -12,6 +30,8 @@ const ProductsItem = (props) =>
     const {data} = props;
     const state = useContext(stateContext);
     const dispatch = useContext(dispatchContext);
+    const [selected, setSelected] = useState({});
+    const itemAttributes = data?.attributes?.nodes || [];
 
     return (
         <View style={styles.container}>
@@ -26,9 +46,12 @@ const ProductsItem = (props) =>
                     />
                 </View>
                     <View style={styles.right}>
-                    <Text>Количество 14</Text>
-                    <Text>Количество 14</Text>
-                    <Text>Количество 14</Text>
+                        {itemAttributes.map( (v, i) =>
+                            {
+                                return <AttrPicker data={v} key={i} onValueChange={(value)=>{}} selected={selected} />
+                            }
+                            )
+                        }
                     </View>
             </View>
                 <View style={styles.bottom}>
@@ -44,6 +67,9 @@ const ProductsItem = (props) =>
                                 count: 1,
                                 price: data.price ? data.price.match(/\d{1,5}.*\d*/)[0] : 0,
                                 stockQuantity: data.stockQuantity || 99,
+                                selectedVariants: [
+                                    "variantID"
+                                ]
                             }
                             // Добавляем в корзину
                             dispatch({type: "AddToCart", payload:payload});
@@ -52,7 +78,7 @@ const ProductsItem = (props) =>
                         </TouchableOpacity>
                 </View>
                     <View>
-                        <Text style={styles.description}>{data.description}</Text>
+                        <Text style={styles.descriptionText}>{data.description}</Text>
                     </View>
         </View>
             

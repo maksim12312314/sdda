@@ -1,10 +1,10 @@
-
 class Config
 {
     constructor()
     {
         this.config = {}
     }
+
     /**
      * Получает значение из конфига
      * @param  {any} key - название параметра
@@ -14,6 +14,7 @@ class Config
     {
         return this.config[key] || def;
     }
+
     /**
      * Заносит значение в конфиг
      * @param  {any} key - название параметра
@@ -26,6 +27,7 @@ class Config
 }
 
 const config = new Config();
+config.setCell("StoreAddress", "http://192.168.63.2/");
 config.setCell("StoreAddress", "http://192.168.0.110/");
 
-export default config;
+export default config; 
