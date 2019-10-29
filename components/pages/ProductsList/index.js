@@ -27,23 +27,34 @@ const ProductsList = (props) =>
             body: JSON.stringify({
                 query: `
                     {
-                        products(where: {category: ${state.currentCategory.id}}) {
+                        products(where: {categoryId: ${state.currentCategory.id}}) {
                             nodes {
                                 productId
                                 name
-                                price(format: FORMATTED)
                                 description
                                 image {
                                   mediaDetails {
                                     file
                                   }
                                 }
-                                attributes {
-                                  nodes {
-                                    name
-                                    attributeId
-                                    options
+                                ... on VariableProduct {
+                                  variations {
+                                    nodes {
+                                      price
+                                      variationId
+                                      name
+                                    }
                                   }
+                                  attributes {
+                                    nodes {
+                                      attributeId
+                                      name
+                                      options
+                                    }
+                                  }
+                                }
+                                ... on SimpleProduct {
+                                  price
                                 }
                               }
                         }
@@ -54,8 +65,11 @@ const ProductsList = (props) =>
             .then(res => res.json())
             .then( ({data}) => 
                 {
-                    // Устанавливаем полученные данные
-                    dispatch({type: "SetProductsList", payload: data, id: state.currentCategory.id});
+                    if ( data.errors )
+                        setError(true)
+                    else
+                        // Устанавливаем полученные данные
+                        dispatch({type: "SetProductsList", payload: data, id: state.currentCategory.id});
                 })
             // Иначе показываем ошибку
             .catch(err => setError(true))
