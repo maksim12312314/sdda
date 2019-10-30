@@ -4,7 +4,7 @@ import CategoryList from "./components/pages/CategoryList/index";
 import Cart from "./components/pages/Cart/index";
 import Header from "./components/Header/index";
 import ProductList from "./components/pages/ProductsList/index";
-import { AppRegistry } from 'react-native';
+import { AppRegistry, ToastAndroid } from 'react-native';
 import { name as appName } from "./app.json";
 import { createAppContainer,} from "react-navigation";
 import {createBottomTabNavigator} from "react-navigation-tabs";
@@ -12,6 +12,10 @@ import DeliveryDetails from './components/Delivery/index';
 import * as hehe from './utils';
 import Orders from "./components/Orders/index";
 
+const showToastMessage = (message) =>
+{
+    ToastAndroid.show(message, ToastAndroid.SHORT);
+}
 
 AppRegistry.registerComponent(appName, ()=>App);
 
@@ -63,7 +67,7 @@ const reducer = (state, action) =>
 					newState.cartItems[containing].count += action.payload.count;
 			}
 
-
+			showToastMessage(`Товар ${action.payload.name} добавлен в корзину!`);
 			return newState;
 		}
 		/**

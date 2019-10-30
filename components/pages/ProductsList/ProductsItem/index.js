@@ -10,17 +10,29 @@ const address = config.getCell("StoreAddress");
 const AttrPicker = (props) =>
 {
     const {data, selected, onValueChange} = props;
-    console.log("sdas", data)
+    console.log("DATA2", data)
     return (
         <Picker
             note
             mode="dropdown"
             style={styles.picker}
-            selectedValue={selected}
-            onValueChange={onValueChange}
+            selectedValue={data.options[0]}
         >
-            {data.options.map( (v, i) => <Picker.Item label={v.name} key={i} value={i} />)}
+            {data.options.map( (v, i) => <Picker.Item label={v} key={i} value={i} />)}
         </Picker>
+    )
+}
+
+const AttrPickersParent = (props) =>
+{
+    const {data} = props;
+    return (
+        <>
+            {data.map( (v, i) =>
+            {
+                return <AttrPicker data={v} key={i}/>
+            })}
+        </>
     )
 }
 
@@ -46,12 +58,7 @@ const ProductsItem = (props) =>
                     />
                 </View>
                     <View style={styles.right}>
-                        {itemAttributes.map( (v, i) =>
-                            {
-                                return <AttrPicker data={v} key={i} onValueChange={(value)=>{}} selected={selected} />
-                            }
-                            )
-                        }
+                        <AttrPickersParent data={itemAttributes}/>
                     </View>
             </View>
                 <View style={styles.bottom}>
