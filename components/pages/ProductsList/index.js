@@ -62,9 +62,10 @@ const ProductsList = (props) =>
                 `,
             }),
             })
-            .then(res => res.json())
-            .then( ({data}) => 
+            .then(res => {return res.json()})
+            .then( (res) => 
                 {
+                    const {data} = res
                     if ( data.errors )
                         setError(true)
                     else
