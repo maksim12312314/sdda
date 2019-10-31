@@ -31,6 +31,17 @@ const reducer = (state, action) =>
 	 */
 	switch (action.type)
 	{
+
+
+		case "SetField":{
+			console.log("!!!")
+			const newState = {...state}
+			newState[action.fieldName] = action.payload
+			return newState
+
+		}
+
+
 		/**
 		 * Устанавливает id категории для текущей страницы
 		 */
@@ -167,11 +178,19 @@ const NotYoursNavigator = createBottomTabNavigator( {
 		screen: ProductList,
 		title: 'ProductList',
 	},
+	DeliveryDetails: {
+		screen: DeliveryDetails,
+		title: 'DeliveryDetails',
+	},
+	Orders: {
+		screen: Orders,
+		title: 'Orders',
+	}
 },
 {
 	initialRouteName : "CategoryList",
 	defaultNavigationOptions: {
-		tabBarVisible:false
+		tabBarVisible:true
 	  },
   } );
 

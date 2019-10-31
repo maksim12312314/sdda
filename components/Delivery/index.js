@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import {   LayoutAnimation, Platform, UIManager, View, StyleSheet, TextInput, Text, Dimensions, Button, TouchableOpacity } from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
-
+import { stateContext, dispatchContext } from "../../contexts";
 
 
 if (
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         left: 1,
         right: 1,
-        bottom: 1
+        bottom: 40,
     },
     text_button: {
         color: "#3BF3AE",
@@ -94,16 +94,20 @@ const styles = StyleSheet.create({
 /** Компонент текстового поля */
 const TextField = (props)=>{
 
+    const state = useContext(stateContext);
+    const dispatch = useContext(dispatchContext);
+
     const [isFocused, setFocus] = useState(false);
-    
+    const {fieldName} = props;
+   
     const [text, setText] = useState("");
 
-    console.log(isFocused, text);
+   
 
     return (
                 <View style={styles.container}>
                     <Text style={{...styles.text, top: (isFocused||text)?-20:0, opacity: (isFocused||text)?0.7:1}} >{props.text}</Text>
-                    <TextInput value={text} onChangeText={(e)=>{setText(e)}} style={styles.text_input} onFocus={()=>{setFocus(true);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} onBlur={()=>{setFocus(false);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} ></TextInput>
+                    <TextInput value={state[fieldName]} onChangeText={(e)=>{dispatch({type:"SetField",fieldName:fieldName,payload:e})}} style={styles.text_input} onFocus={()=>{setFocus(true);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} onBlur={()=>{setFocus(false);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} ></TextInput>
                 </View>
     )   
 
@@ -112,6 +116,7 @@ const TextField = (props)=>{
 /** Компонент деталей доставки */
 const DeliveryDetails = (props) =>
 {
+    const {navigation} = props;
     return (
         <>
         <LinearGradient style={styles.grad} locations={[0, 1.0]} colors={["#1DC44F", "#3BF3AE"]}/>
@@ -121,20 +126,21 @@ const DeliveryDetails = (props) =>
                 <View style={styles.line}></View>
 		    </View>
             <View style={styles.data}>
-                <TextField text="Имя"/>
-                <TextField text="Телефон"/>
-                <TextField text="Адрес"/>
-                <TextField text="Этаж"/>
-                <TextField text="Примечания"/>
-                <TextField text="Когда привезти"/>
+                <TextField fieldName="name" text="Имя"/>
+                <TextField fieldName="phone"  text="Телефон"/>
+                <TextField fieldName="address"  text="Адрес"/>
+                <TextField fieldName="floor"  text="Этаж"/>
+                <TextField fieldName="notes"  text="Примечания"/>
+                <TextField fieldName="when" text="Когда привезти"/>
             </View>
             
             
             
         </View>
 
-        <TouchableOpacity style={styles.button}>
-            <Text style={styles.text_button}>Hi padla</Text>
+        <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate('Orders')}}>
+
+            <Text style={styles.text_button}>Оформить заказ</Text>
         </TouchableOpacity>
         </>
     );
