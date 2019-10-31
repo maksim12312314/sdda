@@ -46,7 +46,7 @@ const Cart = (props) =>
               }}
                 locations={[0, 1.0]} 
                 colors={["#E81C1C", "#E4724F"]}/>
-                <Header {...props}/>
+                <Header {...props} showBack={true} showTitle={true}/>
                 <CartIcon style={styles.icon}/>
 
                 

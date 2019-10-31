@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {   LayoutAnimation, Platform, UIManager, View, StyleSheet, TextInput, Text, Dimensions, Button, TouchableOpacity } from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
+import Header from "./../Header/index";
 
 
 
@@ -115,6 +116,7 @@ const DeliveryDetails = (props) =>
     return (
         <>
         <LinearGradient style={styles.grad} locations={[0, 1.0]} colors={["#1DC44F", "#3BF3AE"]}/>
+        <Header {...props} showBack={true} showTitle={true} showCart={true}/>
         <View style={styles.main}>
             <View style={styles.header}>
                 <Text style={styles.textDelivery}>Детали доставки</Text>

@@ -80,8 +80,8 @@ const ProductsList = (props) =>
                 <LinearGradient
                     style={styles.productslist}
                     locations={[0, 1.0]} 
-                    colors={['#078998', '#65B7B9']}>
-                    <Header {...props}/>
+                    colors={['#2454e5', '#499eda']}>
+                    <Header {...props} showBack={true} showTitle={true} showCart={true}/>
                     { state.products && state.products[state.currentCategory.id] ?
                     <View style={styles.items}>
                         <View style={styles.headTitle}>

@@ -152,7 +152,7 @@ const initialState = {
 };
 
 /**
- * Это очень красивая (нет) навигация
+ * Это очень красивая (да) навигация
  */
 const NotYoursNavigator = createBottomTabNavigator( {
 	CategoryList: {  
@@ -167,6 +167,14 @@ const NotYoursNavigator = createBottomTabNavigator( {
 		screen: ProductList,
 		title: 'ProductList',
 	},
+	DeliveryDetails: {
+		screen: DeliveryDetails,
+		title: 'DeliveryDetails',
+	},
+	Orders: {
+		screen: Orders,
+		title: 'Orders',
+	}
 },
 {
 	initialRouteName : "CategoryList",
