@@ -1,5 +1,5 @@
 import React, {useState, useContext} from "react";
-import {   LayoutAnimation, Platform, UIManager, View, StyleSheet, TextInput, Text, Dimensions, Button, TouchableOpacity } from "react-native";
+import { LayoutAnimation, Platform, UIManager, View, StyleSheet, TextInput, Text, Button, TouchableOpacity, Dimensions, PixelRatio } from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import { stateContext, dispatchContext } from "../../contexts";
 import Header from "./../Header/index";
@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
         
     },
     grad: {
-        //height: Dimensions.get("window").height,
+        width: Dimensions.get("screen").width,
+        height: Dimensions.get("screen").height,
         position: "absolute",
         top: 0,
         left: 0,
