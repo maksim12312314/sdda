@@ -179,7 +179,7 @@ const NotYoursNavigator = createBottomTabNavigator( {
 {
 	initialRouteName : "CategoryList",
 	defaultNavigationOptions: {
-		tabBarVisible:false
+		tabBarVisible:true
 	  },
   } );
 
