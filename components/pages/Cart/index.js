@@ -18,7 +18,7 @@ const ItemsBlock = (props)=>{
     return (
         <View style={styles.itemsBlock}> 
             { !state.cartItems.length
-                ? <Text>Товаров нет</Text>
+                ? <Text style={{color: "#FFF"}}>Товаров нет</Text>
                 : state.cartItems.map( (v, i) =>
                 {
                     return <CartItem key={i} data={v}/>

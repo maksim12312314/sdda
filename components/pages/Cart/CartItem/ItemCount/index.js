@@ -28,7 +28,7 @@ const ItemCount = (props) =>
                 <TouchableOpacity onPress={ (e) =>
                 {
                     // Вычитаем 1 товар
-                    dispatch({type: "minus", payload: id});
+                    dispatch({type: "minus", payload: id, dispatch: dispatch});
                     // Расчитываем итог
                     dispatch({type: "ComputeTotalPrice"});
                 }} style={styles.button}>

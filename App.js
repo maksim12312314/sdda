@@ -4,7 +4,7 @@ import CategoryList from "./components/pages/CategoryList/index";
 import Cart from "./components/pages/Cart/index";
 import Header from "./components/Header/index";
 import ProductList from "./components/pages/ProductsList/index";
-import { AppRegistry, ToastAndroid } from 'react-native';
+import { AppRegistry, ToastAndroid, Alert } from 'react-native';
 import { name as appName } from "./app.json";
 import { createAppContainer,} from "react-navigation";
 import {createBottomTabNavigator} from "react-navigation-tabs";
@@ -117,6 +117,18 @@ const reducer = (state, action) =>
 			});
 			return newState;
 		}
+		case "delete":
+		{
+			const itemWithoutDeleted = state.cartItems.filter((v, i) =>
+			{
+				if ( v.id != action.payload )
+					return true;
+			});
+			const newState = {...state}
+			newState.cartItems = itemWithoutDeleted;
+			return newState;
+		}
+
 		/**
 		 * Минусует 1 товар из корзины
 		 */
@@ -128,9 +140,28 @@ const reducer = (state, action) =>
 					return true;
 			});
 			const newState = {...state};
-			elem[0].count = Math.clamp(--elem[0].count, 1, 99);
+			elem[0].count = Math.clamp(--elem[0].count, 0, 99);
 
-			newState.cartItems[newState.cartItems.indexOf(elem[0])] = elem[0];
+			if ( !elem[0].count )
+			{
+				Alert.alert("УдОлить элементы", "Хотите удОлитЪ?", [
+					{
+						text: "Отмена",
+						onPress: () => {action.dispatch({type: "plus", payload: action.payload})},
+						style: "cancel"
+					},
+					{
+						text: "OK",
+						onPress: () => action.dispatch({type: "delete", payload: action.payload})
+					},
+					{cancelable: false},
+				]);
+			}
+			else
+			{
+				newState.cartItems[newState.cartItems.indexOf(elem[0])] = elem[0];
+			}
+
 			return newState;
 		}
 		/**
