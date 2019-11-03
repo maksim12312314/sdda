@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, TextInput, Text, Dimensions, Button, TouchableOpacity } from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
+import Header from "./../Header/index";
 
 
 const styles = StyleSheet.create({
@@ -85,6 +86,7 @@ const Orders = (props) =>
     return (
         <>
         <LinearGradient style={styles.grad} locations={[0, 1.0]} colors={["#931DC4", "#F33BC8"]}/>
+        <Header {...props} showBack={true} showCart={true}/>
         <View style={styles.main}>
             <View>
                 <Text styles={styles.UpHeader}>Заказы</Text>
