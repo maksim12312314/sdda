@@ -9,17 +9,22 @@ const address = config.getCell("StoreAddress");
 
 const AttrPicker = (props) =>
 {
-    const {data, selected, onValueChange} = props;
-    console.log("DATA2", data)
+    const {data, onValueChange} = props;
+    const [selected, setSelected] = useState(data.options[0]);
+
     return (
+        <>
+        <Text style={{color:  "#FFF", fontWeight: "bold"}}>{data.name}</Text>
         <Picker
             note
             mode="dropdown"
             style={styles.picker}
-            selectedValue={data.options[0]}
+            selectedValue={selected}
+            onValueChange={(val) => setSelected(val)}
         >
             {data.options.map( (v, i) => <Picker.Item label={v} key={i} value={i} />)}
         </Picker>
+        </>
     )
 }
 
@@ -44,7 +49,7 @@ const ProductsItem = (props) =>
     const dispatch = useContext(dispatchContext);
     const [selected, setSelected] = useState({});
     const itemAttributes = data?.attributes?.nodes || [];
-
+    
     return (
         <View style={styles.container}>
 
@@ -85,7 +90,7 @@ const ProductsItem = (props) =>
                         </TouchableOpacity>
                 </View>
                     <View>
-                        <Text style={styles.descriptionText}>{data.description}</Text>
+                        <Text style={styles.descriptionText}>{data.description?.replace(/<\/*.+?\/*>/gi, "") || ""}</Text>
                     </View>
         </View>
             
