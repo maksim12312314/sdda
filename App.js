@@ -31,6 +31,17 @@ const reducer = (state, action) =>
 	 */
 	switch (action.type)
 	{
+
+
+		case "SetField":{
+			console.log("!!!")
+			const newState = {...state}
+			newState[action.fieldName] = action.payload
+			return newState
+
+		}
+
+
 		/**
 		 * Устанавливает id категории для текущей страницы
 		 */
