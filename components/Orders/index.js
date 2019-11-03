@@ -3,6 +3,7 @@ import {   LayoutAnimation, Platform, UIManager, View, StyleSheet, TextInput, Te
 import {LinearGradient} from "expo-linear-gradient";
 import { stateContext, dispatchContext } from "../../contexts";
 import { NavigationActions } from "react-navigation";
+import Header from "./../Header/index";
 
 if (
     Platform.OS === 'android' &&
@@ -140,6 +141,7 @@ const Orders = (props) =>
     return (
         <>
         <LinearGradient style={styles.grad} locations={[0, 1.0]} colors={["#931DC4", "#F33BC8"]}/>
+        <Header {...props} showBack={true} showCart={true}/>
         <View style={styles.main}>
             <View>
                 <Text style={styles.UpHeader}>Заказы</Text>

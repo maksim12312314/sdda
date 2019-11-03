@@ -163,7 +163,7 @@ const initialState = {
 };
 
 /**
- * Это очень красивая (нет) навигация
+ * Это очень красивая (да) навигация
  */
 const NotYoursNavigator = createBottomTabNavigator( {
 	CategoryList: {  
