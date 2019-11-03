@@ -18,7 +18,22 @@ const styles = StyleSheet.create({
     },
     itemsBlock: {
         flexDirection: "column",
-    }
+    },
+    button: {
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 10,
+        backgroundColor: '#ffffff',
+        position: "absolute",
+        left: 1,
+        right: 1,
+        bottom: 40,
+    },
+    text_button: {
+        color: "#E4724F",
+    },
 });
 
 export default styles;
