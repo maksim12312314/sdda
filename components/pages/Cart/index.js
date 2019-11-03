@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { stateContext, dispatchContext } from "../../../contexts";
 
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, TouchableOpacity, View, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import CartIcon from "./CartIcon";
 import CartItem from "./CartItem";
@@ -33,7 +33,8 @@ const Cart = (props) =>
 {
     const state = useContext(stateContext);
     const dispatch = useContext(dispatchContext);
-    
+    const {navigation} = props;
+
     return (
         <View style={styles.container}>
             <LinearGradient
@@ -55,7 +56,9 @@ const Cart = (props) =>
                    
                 
                 <CartTotal/>
-            
+                <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate('DeliveryDetails')}}>
+                    <Text style={styles.text_button}>Оформить заказ</Text>
+                </TouchableOpacity>
 		</View>
     );
 }
