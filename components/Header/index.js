@@ -1,9 +1,9 @@
-import React, {useContext} from "react";
-import { Text, View, TouchableOpacity, Dimensions } from "react-native";
+import React, {useContext, useEffect} from "react";
+import { Text, View, TouchableOpacity, Dimensions, AsyncStorage } from "react-native";
 import Svg, {Path} from "react-native-svg";
 import { StyleSheet } from "react-native";
 import {Badge} from 'native-base';
-import { stateContext } from "../../contexts";
+import { stateContext, dispatchContext } from "../../contexts";
 
 const styles = StyleSheet.create({
     container: {
@@ -41,7 +41,21 @@ const Header = (props) =>
     const {showTitle} = props;
     const {showCart} = props;
     const {navigation} = props;
+    
     const state = useContext(stateContext);
+    const dispatch = useContext(dispatchContext);
+
+
+    useEffect( () =>
+    {
+        (async () =>
+        {
+            const cartItems = await AsyncStorage.getItem("cartItems");
+            console.log("TESTasdasd", cartItems)
+            // dispatch({type: "SetCartItems", cartItems: JSON.parse(cartItems)});
+        })();
+    }, []);    
+
     return (
         <View style={styles.container}>
             <View style={Object.assign( {}, styles.iconBack, {flex:1})}>

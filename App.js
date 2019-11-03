@@ -4,7 +4,7 @@ import CategoryList from "./components/pages/CategoryList/index";
 import Cart from "./components/pages/Cart/index";
 import Header from "./components/Header/index";
 import ProductList from "./components/pages/ProductsList/index";
-import { AppRegistry, ToastAndroid, Alert } from 'react-native';
+import { AppRegistry, ToastAndroid, Alert, AsyncStorage } from 'react-native';
 import { name as appName } from "./app.json";
 import { createAppContainer,} from "react-navigation";
 import {createBottomTabNavigator} from "react-navigation-tabs";
@@ -31,14 +31,20 @@ const reducer = (state, action) =>
 	 */
 	switch (action.type)
 	{
+		case "SetCartItems":
+		{
+			const newState = {...state}
+			newState.cartItems = action.cartItems.cart || [];
+			
+			return newState;
+		}
 
-
-		case "SetField":{
-			console.log("!!!")
+		case "SetField":
+		{
 			const newState = {...state}
 			newState[action.fieldName] = action.payload
-			return newState
 
+			return newState
 		}
 
 
@@ -77,7 +83,12 @@ const reducer = (state, action) =>
 				else
 					newState.cartItems[containing].count += action.payload.count;
 			}
-
+			
+			( async () =>
+			{
+				AsyncStorage.setItem("cartItems", JSON.stringify({cart:newState.cartItems}));
+			})()
+			action.dispatch({type: "ComputeTotalPrice"});
 			showToastMessage(`Товар ${action.payload.name} добавлен в корзину!`);
 			return newState;
 		}
@@ -117,7 +128,7 @@ const reducer = (state, action) =>
 			});
 			return newState;
 		}
-		case "delete":
+		case "DeleteFromCart":
 		{
 			const itemWithoutDeleted = state.cartItems.filter((v, i) =>
 			{
@@ -126,6 +137,10 @@ const reducer = (state, action) =>
 			});
 			const newState = {...state}
 			newState.cartItems = itemWithoutDeleted;
+			( async () =>
+			{
+				AsyncStorage.setItem("cartItems", JSON.stringify({cart:newState.cartItems}));
+			})()
 			return newState;
 		}
 
@@ -152,7 +167,7 @@ const reducer = (state, action) =>
 					},
 					{
 						text: "OK",
-						onPress: () => action.dispatch({type: "delete", payload: action.payload})
+						onPress: () => action.dispatch({type: "DeleteFromCart", payload: action.payload})
 					},
 					{cancelable: false},
 				]);
@@ -178,6 +193,10 @@ const reducer = (state, action) =>
 			elem[0].count = Math.clamp(++elem[0].count, 1, 99);
 			
 			newState.cartItems[newState.cartItems.indexOf(elem[0])] = elem[0];
+			( async () =>
+			{
+				AsyncStorage.setItem("cartItems", JSON.stringify({cart:newState.cartItems}));
+			})()
 			return newState;
 		}
 		default:
@@ -186,9 +205,7 @@ const reducer = (state, action) =>
 }
 
 const initialState = {
-	cartItems: [
-		
-	],
+	cartItems: [],
 	cartTotalPrice: 0,
 	currentCategory: -1,
 };
