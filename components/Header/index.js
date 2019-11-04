@@ -48,8 +48,8 @@ const Header = (props) =>
     {
         (async () =>
         {
-            const cartItems = await AsyncStorage.getItem("cartItems");
-            
+            let cartItems = await AsyncStorage.getItem("cartItems");
+            cartItems = cartItems || '{"cart":[]}';
             dispatch({type: "SetCartItems", cartItems: JSON.parse(cartItems)});
         })();
     }, []);    
