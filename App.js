@@ -214,7 +214,7 @@ const initialState = {
  * Это очень красивая (да) навигация
  */
 const NotYoursNavigator = createBottomTabNavigator( {
-	CategoryList: {  
+	CategoryList: { 
 		screen: CategoryList,
 		title: 'Category',
 		},
@@ -237,9 +237,12 @@ const NotYoursNavigator = createBottomTabNavigator( {
 },
 {
 	initialRouteName : "CategoryList",
+	backBehavior: "history",
 	defaultNavigationOptions: {
-		tabBarVisible:true
+		tabBarVisible:true,
+		
 	  },
+	  
   } );
 
 /**Контейнер приложения */
