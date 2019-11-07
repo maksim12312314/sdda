@@ -107,7 +107,7 @@ const TextField = (props)=>{
 
     return (
                 <View style={styles.container}>
-                    <Text style={{...styles.text, top: (isFocused||text)?-20:0, opacity: (isFocused||text)?0.7:1}} >{props.text}</Text>
+                    <Text style={{...styles.text, top: (isFocused||state[fieldName])?-20:0, opacity: (isFocused||state[fieldName])?0.7:1}} >{props.text}</Text>
                     <TextInput value={state[fieldName]} onChangeText={(e)=>{dispatch({type:"SetField",fieldName:fieldName,payload:e})}} style={styles.text_input} onFocus={()=>{setFocus(true);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} onBlur={()=>{setFocus(false);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} ></TextInput>
                 </View>
     )   
