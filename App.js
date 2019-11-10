@@ -4,7 +4,7 @@ import CategoryList from "./components/pages/CategoryList/index";
 import Cart from "./components/pages/Cart/index";
 import Header from "./components/Header/index";
 import ProductList from "./components/pages/ProductsList/index";
-import { AppRegistry, ToastAndroid } from 'react-native';
+import { AppRegistry, ToastAndroid, Alert, AsyncStorage } from 'react-native';
 import { name as appName } from "./app.json";
 import { createAppContainer,} from "react-navigation";
 import {createBottomTabNavigator} from "react-navigation-tabs";
@@ -31,14 +31,20 @@ const reducer = (state, action) =>
 	 */
 	switch (action.type)
 	{
+		case "SetCartItems":
+		{
+			const newState = {...state}
+			newState.cartItems = action.cartItems.cart || [];
+			
+			return newState;
+		}
 
-
-		case "SetField":{
-			console.log("!!!")
+		case "SetField":
+		{
 			const newState = {...state}
 			newState[action.fieldName] = action.payload
-			return newState
 
+			return newState
 		}
 
 
@@ -77,7 +83,12 @@ const reducer = (state, action) =>
 				else
 					newState.cartItems[containing].count += action.payload.count;
 			}
-
+			
+			( async () =>
+			{
+				AsyncStorage.setItem("cartItems", JSON.stringify({cart:newState.cartItems}));
+			})()
+			action.dispatch({type: "ComputeTotalPrice"});
 			showToastMessage(`Товар ${action.payload.name} добавлен в корзину!`);
 			return newState;
 		}
@@ -117,6 +128,22 @@ const reducer = (state, action) =>
 			});
 			return newState;
 		}
+		case "DeleteFromCart":
+		{
+			const itemWithoutDeleted = state.cartItems.filter((v, i) =>
+			{
+				if ( v.id != action.payload )
+					return true;
+			});
+			const newState = {...state}
+			newState.cartItems = itemWithoutDeleted;
+			( async () =>
+			{
+				AsyncStorage.setItem("cartItems", JSON.stringify({cart:newState.cartItems}));
+			})()
+			return newState;
+		}
+
 		/**
 		 * Минусует 1 товар из корзины
 		 */
@@ -128,9 +155,28 @@ const reducer = (state, action) =>
 					return true;
 			});
 			const newState = {...state};
-			elem[0].count = Math.clamp(--elem[0].count, 1, 99);
+			elem[0].count = Math.clamp(--elem[0].count, 0, 99);
 
-			newState.cartItems[newState.cartItems.indexOf(elem[0])] = elem[0];
+			if ( !elem[0].count )
+			{
+				Alert.alert("УдОлить элементы", "Хотите удОлитЪ?", [
+					{
+						text: "Отмена",
+						onPress: () => {action.dispatch({type: "plus", payload: action.payload})},
+						style: "cancel"
+					},
+					{
+						text: "OK",
+						onPress: () => action.dispatch({type: "DeleteFromCart", payload: action.payload})
+					},
+					{cancelable: false},
+				]);
+			}
+			else
+			{
+				newState.cartItems[newState.cartItems.indexOf(elem[0])] = elem[0];
+			}
+
 			return newState;
 		}
 		/**
@@ -147,6 +193,10 @@ const reducer = (state, action) =>
 			elem[0].count = Math.clamp(++elem[0].count, 1, 99);
 			
 			newState.cartItems[newState.cartItems.indexOf(elem[0])] = elem[0];
+			( async () =>
+			{
+				AsyncStorage.setItem("cartItems", JSON.stringify({cart:newState.cartItems}));
+			})()
 			return newState;
 		}
 		default:
@@ -155,9 +205,7 @@ const reducer = (state, action) =>
 }
 
 const initialState = {
-	cartItems: [
-		
-	],
+	cartItems: [],
 	cartTotalPrice: 0,
 	currentCategory: -1,
 };
@@ -166,7 +214,7 @@ const initialState = {
  * Это очень красивая (да) навигация
  */
 const NotYoursNavigator = createBottomTabNavigator( {
-	CategoryList: {  
+	CategoryList: { 
 		screen: CategoryList,
 		title: 'Category',
 		},
@@ -189,9 +237,12 @@ const NotYoursNavigator = createBottomTabNavigator( {
 },
 {
 	initialRouteName : "CategoryList",
+	backBehavior: "history",
 	defaultNavigationOptions: {
-		tabBarVisible:true
+		tabBarVisible:true,
+		
 	  },
+	  
   } );
 
 /**Контейнер приложения */

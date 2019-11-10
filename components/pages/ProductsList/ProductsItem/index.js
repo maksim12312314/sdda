@@ -84,7 +84,7 @@ const ProductsItem = (props) =>
                                 ]
                             }
                             // Добавляем в корзину
-                            dispatch({type: "AddToCart", payload:payload});
+                            dispatch({type: "AddToCart", payload:payload, dispatch: dispatch});
                         }}>
                             <Text style={styles.text_button}>Купить</Text>
                         </TouchableOpacity>

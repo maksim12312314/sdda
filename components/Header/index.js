@@ -1,9 +1,8 @@
-import React, {useContext} from "react";
-import { Text, View, TouchableOpacity, Dimensions } from "react-native";
+import React, { useContext, useEffect } from "react";
+import { Text, View, TouchableOpacity, Dimensions, PixelRatio, StyleSheet, AsyncStorage } from "react-native";
 import Svg, {Path} from "react-native-svg";
-import { StyleSheet } from "react-native";
 import {Badge} from 'native-base';
-import { stateContext } from "../../contexts";
+import { stateContext, dispatchContext } from "../../contexts";
 
 const styles = StyleSheet.create({
     container: {
@@ -38,11 +37,22 @@ const styles = StyleSheet.create({
 const Header = (props) =>
 {
 
-    const {showBack} = props;
-    const {showTitle} = props;
-    const {showCart} = props;
-    const {navigation} = props;
+    const {showBack, showTitle, showCart, navigation} = props;
+    
     const state = useContext(stateContext);
+    const dispatch = useContext(dispatchContext);
+
+
+    useEffect( () =>
+    {
+        (async () =>
+        {
+            let cartItems = await AsyncStorage.getItem("cartItems");
+            cartItems = cartItems || '{"cart":[]}';
+            dispatch({type: "SetCartItems", cartItems: JSON.parse(cartItems)});
+        })();
+    }, []);    
+
     return (
         <View style={styles.container}>
             <View style={Object.assign( {}, styles.iconBack, {flex:1})}>
@@ -61,7 +71,6 @@ const Header = (props) =>
             <View style={Object.assign({},styles.titleText, {flex:1})}>
                 {showTitle ?
                 <TouchableOpacity onPress={()=>{navigation.navigate('DeliveryDetails')}}>
-                    <Text style={styles.text}>Заказы</Text>
                 </TouchableOpacity> : <></>
                 }
             </View>
@@ -79,8 +88,8 @@ const Header = (props) =>
                         <Text style={{color:'white'}}>
                             {state?.cartItems?.length ? state.cartItems.length : <></>}
                         </Text>
-                        </Badge> 
-                        : <></> }
+                    </Badge>
+                    : <></>}
                 </Svg>
                 </TouchableOpacity> : <></>
                 }
