@@ -21,11 +21,10 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 25,
         color:"#fff",
-        width: Dimensions.get("window").width,
+        width:Dimensions.get("window").width,
     },
     titleText: {
-        paddingLeft:40,
-        
+        paddingLeft:45,
     },
     iconCart: {
         width:40.5,

@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     header: {
         marginBottom: 20,
     },
-    button: {
+    button_enabled: {
        
         paddingHorizontal: 8,
         paddingVertical: 4,
@@ -81,6 +81,18 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 10,
         backgroundColor: '#ffffff',
+        position: "absolute",
+        left: 1,
+        right: 1,
+        bottom: 40,
+    },
+    button_disabled: {
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 10,
+        backgroundColor: '#ffffffaa',
         position: "absolute",
         left: 1,
         right: 1,
@@ -97,27 +109,54 @@ const TextField = (props)=>{
 
     const state = useContext(stateContext);
     const dispatch = useContext(dispatchContext);
-
     const [isFocused, setFocus] = useState(false);
     const {fieldName} = props;
-   
-    const [text, setText] = useState("");
 
+    const [text, setText] = useState("");
    
 
     return (
                 <View style={styles.container}>
-                    <Text style={{...styles.text, top: (isFocused||state[fieldName])?-20:0, opacity: (isFocused||state[fieldName])?0.7:1}} >{props.text}</Text>
+                    <Text style={{...styles.text, top: (isFocused||text)?-20:0, opacity: (isFocused||text)?0.7:1}} >{props.text}</Text>
                     <TextInput value={state[fieldName]} onChangeText={(e)=>{dispatch({type:"SetField",fieldName:fieldName,payload:e})}} style={styles.text_input} onFocus={()=>{setFocus(true);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} onBlur={()=>{setFocus(false);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} ></TextInput>
                 </View>
     )   
 
 }
 
+const hahaha = () =>
+{
+    const state = useContext(stateContext);
+    for ( value in state.deliveryDetails)
+    {
+        if (!state.deliveryDetails[value])
+            return true;
+    }
+    return false;
+}
+
+const ZakazButton = (props) =>
+{
+    const {navigation, enabled} = props;
+
+    return (
+        <TouchableOpacity activeOpacity={enabled ? 0.2 : 1} style={enabled ? styles.button_enabled : styles.button_disabled} onPress={()=>{
+            if (enabled)
+                navigation.navigate('Orders')
+        }
+        }>            
+                <Text style={styles.text_button}>Оформить заказ</Text>
+        </TouchableOpacity>
+    )
+}
+
 /** Компонент деталей доставки */
 const DeliveryDetails = (props) =>
 {
     const {navigation} = props;
+
+    const [enabled, setEnabled] = useState(false);
+    
     return (
         <>
         <LinearGradient style={styles.grad} locations={[0, 1.0]} colors={["#1DC44F", "#3BF3AE"]}/>
@@ -137,13 +176,10 @@ const DeliveryDetails = (props) =>
             </View>
             
             
-            
         </View>
 
-        <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate('Orders')}}>
-
-            <Text style={styles.text_button}>Оформить заказ</Text>
-        </TouchableOpacity>
+        <ZakazButton navigation={navigation}/>
+        
         </>
     );
 }
