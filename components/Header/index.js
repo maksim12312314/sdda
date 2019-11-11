@@ -71,6 +71,7 @@ const Header = (props) =>
             <View style={Object.assign({},styles.titleText, {flex:1})}>
                 {showTitle ?
                 <TouchableOpacity onPress={()=>{navigation.navigate('DeliveryDetails')}}>
+                    <Text style={styles.text}>Заказы</Text>
                 </TouchableOpacity> : <></>
                 }
             </View>
