@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import {   LayoutAnimation, Platform, UIManager, View, StyleSheet, TextInput, Text, Dimensions, Button, TouchableOpacity } from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import { stateContext, dispatchContext } from "../../contexts";
@@ -110,38 +110,47 @@ const TextField = (props)=>{
     const state = useContext(stateContext);
     const dispatch = useContext(dispatchContext);
     const [isFocused, setFocus] = useState(false);
-    const {fieldName} = props;
+    const {fieldName, buttonEnabled, setButtonEnabled} = props;
 
     const [text, setText] = useState("");
    
+    useEffect(()=>{
+        if(!state.deliveryDetails[fieldName])
+            dispatch({type:"SetDeliveryDetailsField",fieldName:fieldName,payload:""})
+    }, [state.deliveryDetails[fieldName]] )
+
 
     return (
                 <View style={styles.container}>
-                    <Text style={{...styles.text, top: (isFocused||text)?-20:0, opacity: (isFocused||text)?0.7:1}} >{props.text}</Text>
-                    <TextInput value={state[fieldName]} onChangeText={(e)=>{dispatch({type:"SetField",fieldName:fieldName,payload:e})}} style={styles.text_input} onFocus={()=>{setFocus(true);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} onBlur={()=>{setFocus(false);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} ></TextInput>
+                    <Text style={{...styles.text, top: (isFocused||state.deliveryDetails[fieldName])?-20:0, opacity: (isFocused||state.deliveryDetails[fieldName])?0.7:1}} >{props.text}</Text>
+                    <TextInput value={state.deliveryDetails[fieldName]} onChangeText={(e)=>{ dispatch({type:"SetDeliveryDetailsField",fieldName:fieldName,payload:e}); if(isAllDeliveryDetailsSet(state)&&!buttonEnabled&&state.deliveryDetails[fieldName])
+                        setButtonEnabled(true); }} style={styles.text_input} onFocus={()=>{setFocus(true);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} onBlur={()=>{setFocus(false);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} ></TextInput>
                 </View>
     )   
 
 }
 
-const hahaha = () =>
+const isAllDeliveryDetailsSet = (state) =>
 {
-    const state = useContext(stateContext);
-    for ( value in state.deliveryDetails)
+    
+    console.log(state.deliveryDetails)
+
+    for ( key in state.deliveryDetails)
     {
-        if (!state.deliveryDetails[value])
-            return true;
+        
+        if (!state.deliveryDetails[key])
+            return false;
     }
-    return false;
+    return true;
 }
 
-const ZakazButton = (props) =>
+const PlaceOrderButton = (props) =>
 {
-    const {navigation, enabled} = props;
+    const {navigation, buttonEnabled, setButtonEnabled} = props;
 
     return (
-        <TouchableOpacity activeOpacity={enabled ? 0.2 : 1} style={enabled ? styles.button_enabled : styles.button_disabled} onPress={()=>{
-            if (enabled)
+        <TouchableOpacity activeOpacity={buttonEnabled ? 0.2 : 1} style={buttonEnabled ? styles.button_enabled : styles.button_disabled} onPress={()=>{
+            if (buttonEnabled)
                 navigation.navigate('Orders')
         }
         }>            
@@ -155,6 +164,8 @@ const DeliveryDetails = (props) =>
 {
     const {navigation} = props;
 
+    const [buttonEnabled, setButtonEnabled] = useState(false);
+
     const [enabled, setEnabled] = useState(false);
     
     return (
@@ -167,18 +178,18 @@ const DeliveryDetails = (props) =>
                 <View style={styles.line}></View>
 		    </View>
             <View style={styles.data}>
-                <TextField fieldName="name" text="Имя"/>
-                <TextField fieldName="phone"  text="Телефон"/>
-                <TextField fieldName="address"  text="Адрес"/>
-                <TextField fieldName="floor"  text="Этаж"/>
-                <TextField fieldName="notes"  text="Примечания"/>
-                <TextField fieldName="when" text="Когда привезти"/>
+                <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="name" text="Имя"/>
+                <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="phone"  text="Телефон"/>
+                <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="address"  text="Адрес"/>
+                <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="floor"  text="Этаж"/>
+                <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="notes"  text="Примечания"/>
+                <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="when" text="Когда привезти"/>
             </View>
             
             
         </View>
 
-        <ZakazButton navigation={navigation}/>
+        <PlaceOrderButton buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} navigation={navigation}/>
         
         </>
     );
