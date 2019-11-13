@@ -104,6 +104,9 @@ const styles = StyleSheet.create({
     },
 });
 
+
+
+
 /** Компонент текстового поля */
 const TextField = (props)=>{
 
@@ -114,10 +117,11 @@ const TextField = (props)=>{
 
     const [text, setText] = useState("");
    
+
     useEffect(()=>{
-        if(!state.deliveryDetails[fieldName])
+        
             dispatch({type:"SetDeliveryDetailsField",fieldName:fieldName,payload:""})
-    }, [state.deliveryDetails[fieldName]] )
+    }, [] )
 
 
     return (
@@ -129,6 +133,8 @@ const TextField = (props)=>{
     )   
 
 }
+
+
 
 const isAllDeliveryDetailsSet = (state) =>
 {
