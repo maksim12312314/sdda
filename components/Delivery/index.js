@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import {   LayoutAnimation, Platform, UIManager, View, StyleSheet, TextInput, Text, Dimensions, Button, TouchableOpacity } from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import { stateContext, dispatchContext } from "../../contexts";
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     header: {
         marginBottom: 20,
     },
-    button: {
+    button_enabled: {
        
         paddingHorizontal: 8,
         paddingVertical: 4,
@@ -86,38 +86,94 @@ const styles = StyleSheet.create({
         right: 1,
         bottom: 40,
     },
+    button_disabled: {
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 10,
+        backgroundColor: '#ffffffaa',
+        position: "absolute",
+        left: 1,
+        right: 1,
+        bottom: 40,
+    },
     text_button: {
         color: "#3BF3AE",
         
     },
 });
 
+
+
+
 /** Компонент текстового поля */
 const TextField = (props)=>{
 
     const state = useContext(stateContext);
     const dispatch = useContext(dispatchContext);
-
     const [isFocused, setFocus] = useState(false);
-    const {fieldName} = props;
-   
-    const [text, setText] = useState("");
+    const {fieldName, buttonEnabled, setButtonEnabled} = props;
 
+    const [text, setText] = useState("");
    
+
+    useEffect(()=>{
+        
+            dispatch({type:"SetDeliveryDetailsField",fieldName:fieldName,payload:""})
+    }, [] )
+
 
     return (
                 <View style={styles.container}>
-                    <Text style={{...styles.text, top: (isFocused||state[fieldName])?-20:0, opacity: (isFocused||state[fieldName])?0.7:1}} >{props.text}</Text>
-                    <TextInput value={state[fieldName]} onChangeText={(e)=>{dispatch({type:"SetField",fieldName:fieldName,payload:e})}} style={styles.text_input} onFocus={()=>{setFocus(true);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} onBlur={()=>{setFocus(false);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} ></TextInput>
+                    <Text style={{...styles.text, top: (isFocused||state.deliveryDetails[fieldName])?-20:0, opacity: (isFocused||state.deliveryDetails[fieldName])?0.7:1}} >{props.text}</Text>
+                    <TextInput value={state.deliveryDetails[fieldName]} onChangeText={(e)=>{ dispatch({type:"SetDeliveryDetailsField",fieldName:fieldName,payload:e}); if(isAllDeliveryDetailsSet(state)&&!buttonEnabled&&state.deliveryDetails[fieldName])
+                        setButtonEnabled(true); }} style={styles.text_input} onFocus={()=>{setFocus(true);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} onBlur={()=>{setFocus(false);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} ></TextInput>
                 </View>
     )   
 
+}
+
+
+
+const isAllDeliveryDetailsSet = (state) =>
+{
+    
+    console.log(state.deliveryDetails)
+
+    for ( key in state.deliveryDetails)
+    {
+        
+        if (!state.deliveryDetails[key])
+            return false;
+    }
+    return true;
+}
+
+const PlaceOrderButton = (props) =>
+{
+    const {navigation, buttonEnabled, setButtonEnabled} = props;
+
+    return (
+        <TouchableOpacity activeOpacity={buttonEnabled ? 0.2 : 1} style={buttonEnabled ? styles.button_enabled : styles.button_disabled} onPress={()=>{
+            if (buttonEnabled)
+                navigation.navigate('Orders')
+        }
+        }>            
+                <Text style={styles.text_button}>Оформить заказ</Text>
+        </TouchableOpacity>
+    )
 }
 
 /** Компонент деталей доставки */
 const DeliveryDetails = (props) =>
 {
     const {navigation} = props;
+
+    const [buttonEnabled, setButtonEnabled] = useState(false);
+
+    const [enabled, setEnabled] = useState(false);
+    
     return (
         <>
         <LinearGradient style={styles.grad} locations={[0, 1.0]} colors={["#1DC44F", "#3BF3AE"]}/>
@@ -128,22 +184,19 @@ const DeliveryDetails = (props) =>
                 <View style={styles.line}></View>
 		    </View>
             <View style={styles.data}>
-                <TextField fieldName="name" text="Имя"/>
-                <TextField fieldName="phone"  text="Телефон"/>
-                <TextField fieldName="address"  text="Адрес"/>
-                <TextField fieldName="floor"  text="Этаж"/>
-                <TextField fieldName="notes"  text="Примечания"/>
-                <TextField fieldName="when" text="Когда привезти"/>
+                <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="name" text="Имя"/>
+                <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="phone"  text="Телефон"/>
+                <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="address"  text="Адрес"/>
+                <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="floor"  text="Этаж"/>
+                <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="notes"  text="Примечания"/>
+                <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="when" text="Когда привезти"/>
             </View>
-            
             
             
         </View>
 
-        <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate('Orders')}}>
-
-            <Text style={styles.text_button}>Оформить заказ</Text>
-        </TouchableOpacity>
+        <PlaceOrderButton buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} navigation={navigation}/>
+        
         </>
     );
 }

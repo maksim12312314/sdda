@@ -48,6 +48,15 @@ const reducer = (state, action) =>
 		}
 
 
+		case "SetDeliveryDetailsField":
+		{
+			const newState = {...state};
+			newState.deliveryDetails[action.fieldName] = action.payload;
+
+			return newState;
+		}
+
+
 		/**
 		 * Устанавливает id категории для текущей страницы
 		 */
@@ -208,6 +217,7 @@ const initialState = {
 	cartItems: [],
 	cartTotalPrice: 0,
 	currentCategory: -1,
+	deliveryDetails: {}
 };
 
 /**
@@ -236,7 +246,7 @@ const NotYoursNavigator = createBottomTabNavigator( {
 	}
 },
 {
-	initialRouteName : "CategoryList",
+	initialRouteName : "DeliveryDetails",
 	backBehavior: "history",
 	defaultNavigationOptions: {
 		tabBarVisible:true,

@@ -1,5 +1,5 @@
 import React, {useState, useContext} from "react";
-import {   LayoutAnimation, Platform, UIManager, View, StyleSheet, TextInput, Text, Dimensions, Button, TouchableOpacity } from "react-native";
+import { LayoutAnimation, Platform, UIManager, View, StyleSheet, TextInput, Text, Dimensions, Button, TouchableOpacity, ScrollView } from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import { stateContext, dispatchContext } from "../../contexts";
 import { NavigationActions } from "react-navigation";
@@ -58,16 +58,19 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginBottom: 220,
+       
 
     },
     data: {
         justifyContent: "flex-start",
         alignItems: "flex-start",
-        width: 233,
+        width: 300,
     },
     header: {
         marginBottom: 20,
+    },
+    Buttons: {
+       
     },
     button_back: {
        
@@ -77,10 +80,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 10,
         backgroundColor: '#ffffff',
-        position: "absolute",
-        left: 25,
-        right:25,
-        bottom: 80,
+       // position: "absolute",
+        left: 0,
+        right:0,
+        width: Dimensions.get("window").width,
+        marginBottom: 15,
+        marginTop: 10,
     },
     button_go: {
        
@@ -90,10 +95,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 10,
         backgroundColor: '#ffffff',
-        position: "absolute",
-        left: 25,
-        right:25,
-        bottom: 20,
+        //position: "absolute",
+        left: 0,
+        right:0,
+        marginBottom:10,
     },    
     text_button: {
         color: "#961EC4",
@@ -106,6 +111,7 @@ const styles = StyleSheet.create({
         color: '#fff',
     },
     text_info: {
+        
         color: "#fff",
     }
 });
@@ -139,8 +145,9 @@ const Orders = (props) =>
     const { navigation } = props;
 
     return (
-        <>
+        <ScrollView>
         <LinearGradient style={styles.grad} locations={[0, 1.0]} colors={["#931DC4", "#F33BC8"]}/>
+        
         <Header {...props} showBack={true} showCart={true}/>
         <View style={styles.main}>
             <View>
@@ -153,6 +160,24 @@ const Orders = (props) =>
             <View style={styles.time}>
                 <Text style={styles.text}>26 августа 2019, 4 часа утра</Text>
             </View>
+            <View style={styles.data}>
+                <Text style={styles.text_info}>Имя: {state["name"]}</Text>
+                <Text style={styles.text_info}>Телефон: {state["phone"]}</Text>
+                <Text style={styles.text_info}>Адрес: {state["address"]}</Text>
+                <Text style={styles.text_info}>Этаж: {state["floor"]}</Text>
+                <Text style={styles.text_info}>Примечания: {state["notes"]}</Text>
+                <Text style={styles.text_info}>Когда привезти: {state["when"]}</Text> 
+                    
+            </View>
+            <View style={styles.Buttons}>
+                   <TouchableOpacity style={styles.button_back} onPress={()=>{navigation.navigate('DeliveryDetails')}}>
+                        <Text style={styles.text_button}>Редактировать</Text>
+                   </TouchableOpacity>
+                   <TouchableOpacity style={styles.button_go}>
+                         <Text style={styles.text_button}>Разместить</Text>
+                   </TouchableOpacity>
+                </View>
+                
                 <View style={styles.data}>
                     <Text style={styles.text_info}>Имя: {state["name"]}</Text>
                     <Text style={styles.text_info}>Телефон: {state["phone"]}</Text>
@@ -161,16 +186,35 @@ const Orders = (props) =>
                     <Text style={styles.text_info}>Примечания: {state["notes"]}</Text>
                     <Text style={styles.text_info}>Когда привезти: {state["when"]}</Text> 
                 </View>
+                <View style={styles.Buttons}>
+                   <TouchableOpacity style={styles.button_back} onPress={()=>{navigation.navigate('DeliveryDetails')}}>
+                        <Text style={styles.text_button}>Редактировать</Text>
+                   </TouchableOpacity>
+                   <TouchableOpacity style={styles.button_go}>
+                         <Text style={styles.text_button}>Разместить</Text>
+                   </TouchableOpacity>
+                </View>
+                <View style={styles.data}>
+                    <Text style={styles.text_info}>Имя: {state["name"]}</Text>
+                    <Text style={styles.text_info}>Телефон: {state["phone"]}</Text>
+                    <Text style={styles.text_info}>Адрес: {state["address"]}</Text>
+                    <Text style={styles.text_info}>Этаж: {state["floor"]}</Text>
+                    <Text style={styles.text_info}>Примечания: {state["notes"]}</Text>
+                    <Text style={styles.text_info}>Когда привезти: {state["when"]}</Text>
+                </View>
+                <View style={styles.Buttons}>
+                   <TouchableOpacity style={styles.button_back} onPress={()=>{navigation.navigate('DeliveryDetails')}}>
+                        <Text style={styles.text_button}>Редактировать</Text>
+                   </TouchableOpacity>
+                   <TouchableOpacity style={styles.button_go}>
+                         <Text style={styles.text_button}>Разместить</Text>
+                   </TouchableOpacity>
+                </View>
+        
             </View>
 
-         
-        <TouchableOpacity style={styles.button_back} onPress={()=>{navigation.navigate('DeliveryDetails')}}>
-                 <Text style={styles.text_button}>Редактировать</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button_go}>
-                 <Text style={styles.text_button}>Разместить</Text>
-        </TouchableOpacity>
-        </>
+               
+        </ScrollView>
     );
 }
 
