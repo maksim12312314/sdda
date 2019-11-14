@@ -40,6 +40,7 @@ const Header = (props) =>
     const {showBack, showTitle, showCart, navigation} = props;
     
     const state = useContext(stateContext);
+    const context = useContext(stateContext);
     const dispatch = useContext(dispatchContext);
 
 
@@ -88,6 +89,9 @@ const Header = (props) =>
                     <Badge success style={{width:20,height:20,top:19,left:-5}}>
                         <Text style={{color:'white'}}>
                             {state?.cartItems?.length ? state.cartItems.length : <></>}
+                        </Text>
+                        <Text style={{color:'white',top:-7,left:15,width:200}}>
+                            {context.cartTotalPrice}$
                         </Text>
                     </Badge>
                     : <></>}
