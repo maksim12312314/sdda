@@ -50,13 +50,10 @@ const Cart = (props) =>
             colors={["#E81C1C", "#E4724F"]}/>
         <ScrollView contentContainerStyle={{justifyContent: "flex-start", alignItems:"center"}} style={styles.container}>
             
-                <Header {...props} showBack={true} showTitle={"Заказы"}/>
+                <Header {...props} showBack={true} showTitle={"Заказы"} titleFunc={() => { navigation.navigate('DeliveryDetails') }}/>
                 <CartIcon/>
-
                 
                 <ItemsBlock/>
-          
-                   
                 
                 <CartTotal/>
                 <TouchableOpacity
@@ -64,7 +61,7 @@ const Cart = (props) =>
                     style={!state.cartItems.length ? styles.button_disabled : styles.button_enabled}
                     onPress={()=>{
                         if ( state.cartItems.length )
-                            navigation.navigate('DeliveryDetails');
+                            navigation.navigate('Orders');
                     }}>
 
                     <Text style={styles.text_button}>Оформить заказ</Text>

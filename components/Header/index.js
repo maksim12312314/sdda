@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         width:Dimensions.get("window").width,
     },
     titleText: {
-        paddingLeft:45,
+        marginLeft: 30, // Говнофикс
     },
     iconCart: {
         width:40.5,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 const Header = (props) =>
 {
 
-    const {showBack, showTitle, showCart, navigation} = props;
+    const {showBack, showTitle, titleFunc, showCart, navigation} = props;
     
     const state = useContext(stateContext);
     const dispatch = useContext(dispatchContext);
@@ -72,14 +72,17 @@ const Header = (props) =>
             </View>
             <View style={Object.assign({},styles.titleText, {flex:1})}>
                 {showTitle ?
-                <TouchableOpacity onPress={()=>{navigation.navigate('DeliveryDetails')}}>
+                <TouchableOpacity activeOpacity={ titleFunc ? 0.2 : 1 } onPress={()=>{ 
+                        if (titleFunc)
+                            titleFunc();
+                    }}>
                     <Text style={styles.text}>{showTitle}</Text>
                 </TouchableOpacity> : <></>
                 }
             </View>
             <View style={Object.assign({},styles.iconCart, {flex:1})}>
                 {showCart ?
-                <TouchableOpacity  onPress={()=>{navigation.navigate('Cart')}}>
+                <TouchableOpacity onPress={()=>{navigation.navigate('Cart')}}>
                 <Svg style={styles.icon} width="40.5" height="31.5" viewBox="0 0 40.5 31.5">
                     <Path id="Icon_awesome-shopping-basket"
                         data-name="Icon awesome-shopping-basket"
