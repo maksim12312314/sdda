@@ -186,7 +186,7 @@ const reducer = (state, action) =>
 					return true;
 			});
 			const newState = {...state};
-			elem[0].count = Math.clamp(--elem[0].count, 0, 99);
+			elem[0].count = Math.clamp(--elem[0].count, 0, elem[0].stockQuantity || 99);
 
 			if ( !elem[0].count )
 			{
@@ -221,7 +221,7 @@ const reducer = (state, action) =>
 					return true;
 			});
 			const newState = {...state};
-			elem[0].count = Math.clamp(++elem[0].count, 1, 99);
+			elem[0].count = Math.clamp(++elem[0].count, 1, elem[0].stockQuantity || 99);
 			
 			newState.cartItems[newState.cartItems.indexOf(elem[0])] = elem[0];
 			( async () =>
