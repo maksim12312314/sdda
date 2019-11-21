@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import ItemCount from "./ItemCount";
 import styles from "./styles";
 import { stateContext, dispatchContext } from "../../../../contexts";
@@ -14,8 +14,21 @@ const DeleteButton = (props) =>
     return (
         <TouchableOpacity onPress={(e) =>
         {
-            dispatch({type: "DeleteFromCart", payload: id});
-            dispatch({type: "ComputeTotalPrice"});
+            Alert.alert("УдОлить элементы", "Хотите удОлитЪ?", [
+                {
+                    text: "Отмена",
+                    style: "cancel"
+                },
+                {
+                    text: "OK",
+                    onPress: () => {
+                        dispatch({type: "DeleteFromCart", payload: id, showAlert: true});
+                        dispatch({type: "ComputeTotalPrice"});
+                    },
+                },
+                {cancelable: false},
+            ]);
+            
         }}>
             <FontAwesomeIcon size={16} color={"#fff"} icon={ faTimesCircle }/>
         </TouchableOpacity>
