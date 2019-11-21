@@ -88,7 +88,11 @@ const Header = (props) =>
                         fill="#fff"/>
                         {state?.cartItems?.length ?
                     <Badge success style={{width:28,height:28,top:19,left:-15}}>
-                        <Text style={{color:'white',top:4}}>
+                        <Text style={
+                            state.cartItems.length < 10 ?
+                                {color:'white',top:4, left:4} :
+                                {color:'white',top:4}
+                            }>
                             {state?.cartItems?.length ? 
                                 (() => {
                                     if ( state.cartItems.length < 10 )
