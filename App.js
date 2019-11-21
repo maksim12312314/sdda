@@ -246,7 +246,7 @@ const NotYoursNavigator = createBottomTabNavigator( {
 	}
 },
 {
-	initialRouteName : "DeliveryDetails",
+	initialRouteName : "CategoryList",
 	backBehavior: "history",
 	defaultNavigationOptions: {
 		tabBarVisible:true,

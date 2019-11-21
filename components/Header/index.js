@@ -40,7 +40,6 @@ const Header = (props) =>
     const {showBack, showTitle, showCart, navigation} = props;
     
     const state = useContext(stateContext);
-    const context = useContext(stateContext);
     const dispatch = useContext(dispatchContext);
 
 
@@ -51,8 +50,10 @@ const Header = (props) =>
             let cartItems = await AsyncStorage.getItem("cartItems");
             cartItems = cartItems || '{"cart":[]}';
             dispatch({type: "SetCartItems", cartItems: JSON.parse(cartItems)});
+            dispatch({type: "ComputeTotalPrice"});
         })();
-    }, []);    
+       
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -86,12 +87,12 @@ const Header = (props) =>
                         transform="translate(0 -2.25)"
                         fill="#fff"/>
                         {state?.cartItems?.length ?
-                    <Badge success style={{width:20,height:20,top:19,left:-5}}>
-                        <Text style={{color:'white'}}>
+                    <Badge success style={{width:28,height:28,top:19,left:-15}}>
+                        <Text style={{color:'white',top:4}}>
                             {state?.cartItems?.length ? state.cartItems.length : <></>}
                         </Text>
-                        <Text style={{color:'white',top:-7,left:15,width:200}}>
-                            {context.cartTotalPrice}$
+                        <Text style={{color:'white',top:-7,left:22,width:200}}>
+                            {state.cartTotalPrice}$
                         </Text>
                     </Badge>
                     : <></>}
