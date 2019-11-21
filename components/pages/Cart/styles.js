@@ -18,13 +18,25 @@ const styles = StyleSheet.create({
     itemsBlock: {
         flexDirection: "column",
     },
-    button: {
+    button_enabled: {
         paddingHorizontal: 18,
         paddingVertical: 4,
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 10,
         backgroundColor: '#ffffff',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        marginBottom: 50,
+    },
+    button_disabled: {
+        paddingHorizontal: 18,
+        paddingVertical: 4,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 10,
+        backgroundColor: '#FFFA',
         left: 0,
         right: 0,
         bottom: 0,

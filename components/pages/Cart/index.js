@@ -59,7 +59,14 @@ const Cart = (props) =>
                    
                 
                 <CartTotal/>
-                <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate('DeliveryDetails')}}>
+                <TouchableOpacity
+                    activeOpacity={ !state.cartItems.length ? 1.0 : 0.2 }
+                    style={!state.cartItems.length ? styles.button_disabled : styles.button_enabled}
+                    onPress={()=>{
+                        if ( state.cartItems.length )
+                            navigation.navigate('DeliveryDetails');
+                    }}>
+
                     <Text style={styles.text_button}>Оформить заказ</Text>
                 </TouchableOpacity>
                 
