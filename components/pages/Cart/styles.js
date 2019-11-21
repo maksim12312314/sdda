@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 // CART PAGE STYLES
 
@@ -6,30 +6,29 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "center",
+        /*justifyContent: "flex-start",
+        alignItems: "center",*/
+        minHeight: Dimensions.get("window").height,
+        //height: Dimensions.get("window").height,
     },
     items: {
         justifyContent: "center",
         alignItems: "center"
     },
-    icon: {
-        
-    },
     itemsBlock: {
         flexDirection: "column",
     },
     button: {
-        paddingHorizontal: 8,
+        paddingHorizontal: 18,
         paddingVertical: 4,
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 10,
         backgroundColor: '#ffffff',
-        position: "absolute",
-        left: 1,
-        right: 1,
-        bottom: 40,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        marginBottom: 50,
     },
     text_button: {
         color: "#E4724F",

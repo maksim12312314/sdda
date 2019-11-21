@@ -73,24 +73,36 @@ const reducer = (state, action) =>
 		{
 			const newState = {...state};
 
-			const containing = newState.cartItems.reduce( (a,e,i,m)=>{
+			/*const containing = newState.cartItems.reduce( (a,e,i,m)=>{
 
 				if (e.id == action.payload.id)
 					return i;
 
-			}, newState.cartItems.length )
+			}, newState.cartItems.length )*/ // Говнокод)
 
-			
+			var containing, num;
+
+			for ( i in newState.cartItems )
+			{
+				if ( newState.cartItems[i].id == action.payload.id )
+				{
+					containing = true;
+					num = i;
+				}
+			}
 
 			if ( action.payload )
 			{
-				if ( !newState.cartItems[containing] )
+				if ( !containing )
 				{
 					newState.cartItems.push(action.payload)
 		
 				}
 				else
-					newState.cartItems[containing].count += action.payload.count;
+				{
+					if ( newState.cartItems[num] )
+						newState.cartItems[num].count += action.payload.count;
+				}
 			}
 			
 			( async () =>
@@ -137,6 +149,10 @@ const reducer = (state, action) =>
 			});
 			return newState;
 		}
+
+		/**
+		 * Удаляет товар из корзины
+		 */
 		case "DeleteFromCart":
 		{
 			const itemWithoutDeleted = state.cartItems.filter((v, i) =>

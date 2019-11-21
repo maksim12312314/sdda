@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     },
     container: {
         width: 140,
-        height: 120,
         borderBottomWidth: 1,
         borderColor: "#FFF",
         alignItems: "center",

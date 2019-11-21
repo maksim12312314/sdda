@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { stateContext, dispatchContext } from "../../../contexts";
 
-import { ScrollView, TouchableOpacity, View, Text } from "react-native";
+import { ScrollView, TouchableOpacity, View, Text, Dimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import CartIcon from "./CartIcon";
 import CartItem from "./CartItem";
@@ -34,21 +34,24 @@ const Cart = (props) =>
     const state = useContext(stateContext);
     const dispatch = useContext(dispatchContext);
     const {navigation} = props;
-
+    
     return (
-        <View style={styles.container}>
-            <LinearGradient
-               style={{
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                top: 0,
-                bottom: 0
-              }}
-                locations={[0, 1.0]} 
-                colors={["#E81C1C", "#E4724F"]}/>
-                <Header {...props} showBack={true} showTitle={true}/>
-                <CartIcon style={styles.icon}/>
+        <>
+        <LinearGradient
+            style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            minHeight: Dimensions.get("window").height,
+            }}
+            locations={[0, 1.0]} 
+            colors={["#E81C1C", "#E4724F"]}/>
+        <ScrollView contentContainerStyle={{justifyContent: "flex-start", alignItems:"center"}} style={styles.container}>
+            
+                <Header {...props} showBack={true} showTitle={"Заказы"}/>
+                <CartIcon/>
 
                 
                 <ItemsBlock/>
@@ -59,7 +62,9 @@ const Cart = (props) =>
                 <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate('DeliveryDetails')}}>
                     <Text style={styles.text_button}>Оформить заказ</Text>
                 </TouchableOpacity>
-		</View>
+                
+		</ScrollView>
+        </>
     );
 }
 
