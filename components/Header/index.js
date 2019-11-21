@@ -89,7 +89,14 @@ const Header = (props) =>
                         {state?.cartItems?.length ?
                     <Badge success style={{width:28,height:28,top:19,left:-15}}>
                         <Text style={{color:'white',top:4}}>
-                            {state?.cartItems?.length ? state.cartItems.length : <></>}
+                            {state?.cartItems?.length ? 
+                                (() => {
+                                    if ( state.cartItems.length < 10 )
+                                        return state.cartItems.length;
+                                    else
+                                        return "9+";
+                                })() : 
+                                <></>}
                         </Text>
                         <Text style={{color:'white',top:-7,left:22,width:200}}>
                             {state.cartTotalPrice}$
