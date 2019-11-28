@@ -15,9 +15,9 @@ import Orders from "./components/Orders/index";
 const showToastMessage = (message) =>
 {
     ToastAndroid.show(message, ToastAndroid.SHORT);
-}
+};
 
-AppRegistry.registerComponent(appName, ()=>App);
+AppRegistry.registerComponent(appName, () => App);
 
 /**
  * Редюсер
@@ -33,19 +33,19 @@ const reducer = (state, action) =>
 	{
 		case "SetCartItems":
 		{
-			const newState = {...state}
+			const newState = {...state};
 			newState.cartItems = action.cartItems.cart || [];
 			
 			return newState;
-		}
+		};
 
 		case "SetField":
 		{
-			const newState = {...state}
-			newState[action.fieldName] = action.payload
+			const newState = {...state};
+			newState[action.fieldName] = action.payload;
 
-			return newState
-		}
+			return newState;
+		};
 
 
 		case "SetDeliveryDetailsField":
@@ -54,7 +54,7 @@ const reducer = (state, action) =>
 			newState.deliveryDetails[action.fieldName] = action.payload;
 
 			return newState;
-		}
+		};
 
 
 		/**
@@ -65,7 +65,7 @@ const reducer = (state, action) =>
 			const newState = {...state};
 			newState.currentCategory = action.payload;
 			return newState;
-		}
+		};
 		/**
 		 * Заносит товар и его данные в state
 		 */
@@ -73,34 +73,48 @@ const reducer = (state, action) =>
 		{
 			const newState = {...state};
 
-			const containing = newState.cartItems.reduce( (a,e,i,m)=>{
+			/*const containing = newState.cartItems.reduce( (a,e,i,m)=>{
 
 				if (e.id == action.payload.id)
 					return i;
 
-			}, newState.cartItems.length )
+			}, newState.cartItems.length )*/ // Говнокод)
 
-			
+			var containing, num;
+
+			for ( i in newState.cartItems )
+			{
+				if ( newState.cartItems[i].id == action.payload.id )
+				{
+					containing = true;
+					num = i;
+				}
+			}
 
 			if ( action.payload )
 			{
-				if ( !newState.cartItems[containing] )
+				if ( !containing )
 				{
-					newState.cartItems.push(action.payload)
-		
+					newState.cartItems.push(action.payload);
 				}
 				else
-					newState.cartItems[containing].count += action.payload.count;
+				{
+					if ( newState.cartItems[num] )
+						newState.cartItems[num].count += action.payload.count;
+				}
 			}
 			
 			( async () =>
 			{
 				AsyncStorage.setItem("cartItems", JSON.stringify({cart:newState.cartItems}));
-			})()
+			})();
+
 			action.dispatch({type: "ComputeTotalPrice"});
 			showToastMessage(`Товар ${action.payload.name} добавлен в корзину!`);
+
 			return newState;
-		}
+		};
+
 		/**
 		 * Устанавливает список продуктов для текущей страницы
 		 */
@@ -111,7 +125,8 @@ const reducer = (state, action) =>
 			newState.products = {...newState.products, [action.id]: action.payload.products.nodes};
 			
 			return newState;
-		}
+		};
+
 		/**
 		 * Устанавливает список категорий для текущей страницы
 		 */
@@ -122,7 +137,8 @@ const reducer = (state, action) =>
 			newState.categories = action.payload.productCategories.nodes;
 			
 			return newState;
-		}
+		};
+
 		/**
 		 * Расчитывает общую цену для корзины
 		 */
@@ -136,22 +152,28 @@ const reducer = (state, action) =>
 				newState.cartTotalPrice += v.price * v.count;
 			});
 			return newState;
-		}
+		};
+
+		/**
+		 * Удаляет товар из корзины
+		 */
 		case "DeleteFromCart":
 		{
+			const newState = {...state};
+			
 			const itemWithoutDeleted = state.cartItems.filter((v, i) =>
 			{
 				if ( v.id != action.payload )
 					return true;
 			});
-			const newState = {...state}
 			newState.cartItems = itemWithoutDeleted;
+			
 			( async () =>
 			{
 				AsyncStorage.setItem("cartItems", JSON.stringify({cart:newState.cartItems}));
-			})()
+			})();
 			return newState;
-		}
+		};
 
 		/**
 		 * Минусует 1 товар из корзины
@@ -164,7 +186,7 @@ const reducer = (state, action) =>
 					return true;
 			});
 			const newState = {...state};
-			elem[0].count = Math.clamp(--elem[0].count, 0, 99);
+			elem[0].count = Math.clamp(--elem[0].count, 0, elem[0].stockQuantity || 99);
 
 			if ( !elem[0].count )
 			{
@@ -187,7 +209,7 @@ const reducer = (state, action) =>
 			}
 
 			return newState;
-		}
+		};
 		/**
 		 * Плюсует 1 товар в корзину
 		 */
@@ -199,29 +221,31 @@ const reducer = (state, action) =>
 					return true;
 			});
 			const newState = {...state};
-			elem[0].count = Math.clamp(++elem[0].count, 1, 99);
+			elem[0].count = Math.clamp(++elem[0].count, 1, elem[0].stockQuantity || 99);
 			
 			newState.cartItems[newState.cartItems.indexOf(elem[0])] = elem[0];
 			( async () =>
 			{
 				AsyncStorage.setItem("cartItems", JSON.stringify({cart:newState.cartItems}));
-			})()
+			})();
+
 			return newState;
-		}
+		};
+
 		default:
 			return state;
-	}
-}
+	};
+};
 
 const initialState = {
 	cartItems: [],
 	cartTotalPrice: 0,
 	currentCategory: -1,
-	deliveryDetails: {}
+	deliveryDetails: {},
 };
 
 /**
- * Это очень красивая (да) навигация
+ * Это очень красивая (net) навигация
  */
 const NotYoursNavigator = createBottomTabNavigator( {
 	CategoryList: { 
@@ -249,8 +273,7 @@ const NotYoursNavigator = createBottomTabNavigator( {
 	initialRouteName : "CategoryList",
 	backBehavior: "history",
 	defaultNavigationOptions: {
-		tabBarVisible:true,
-		
+		tabBarVisible: false,
 	  },
 	  
   } );
