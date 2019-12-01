@@ -195,12 +195,12 @@ const Orders = (props) =>
                    </TouchableOpacity>
                 </View>
                 <View style={styles.data}>
-                    <Text style={styles.text_info}>Имя: {state["name"]}</Text>
-                    <Text style={styles.text_info}>Телефон: {state["phone"]}</Text>
-                    <Text style={styles.text_info}>Адрес: {state["address"]}</Text>
-                    <Text style={styles.text_info}>Этаж: {state["floor"]}</Text>
-                    <Text style={styles.text_info}>Примечания: {state["notes"]}</Text>
-                    <Text style={styles.text_info}>Когда привезти: {state["when"]}</Text>
+                    <Text style={styles.text_info}>Имя: {state.deliveryDetails["name"]}</Text>
+                    <Text style={styles.text_info}>Телефон: {state.deliveryDetails["phone"]}</Text>
+                    <Text style={styles.text_info}>Адрес: {state.deliveryDetails["address"]}</Text>
+                    <Text style={styles.text_info}>Этаж: {state.deliveryDetails["floor"]}</Text>
+                    <Text style={styles.text_info}>Примечания: {state.deliveryDetails["notes"]}</Text>
+                    <Text style={styles.text_info}>Когда привезти: {state.deliveryDetails["when"]}</Text>
                 </View>
                 <View style={styles.Buttons}>
                    <TouchableOpacity style={styles.button_back} onPress={()=>{navigation.navigate('DeliveryDetails')}}>
