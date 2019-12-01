@@ -19,6 +19,18 @@ const showToastMessage = (message) =>
 
 AppRegistry.registerComponent(appName, () => App);
 
+const isAllDeliveryDetailsSet = (state) =>
+{
+    for ( key in state.deliveryDetails)
+    {
+        
+        if (!state.deliveryDetails[key])
+            return false;
+    } 
+    return true;
+}
+
+
 /**
  * Редюсер
  * @param  {object} state - объект state
@@ -55,7 +67,17 @@ const reducer = (state, action) =>
 
 			return newState;
 		};
+		
+		case "ChangeButtonStatus":{
+			const newState = {...state};
+			
+			if(isAllDeliveryDetailsSet(newState) && !action.buttonEnabled)
+				action.setButtonEnabled(true)
+			else if(!isAllDeliveryDetailsSet(newState) && action.buttonEnabled)
+				action.setButtonEnabled(false)
 
+			return newState;
+		}
 
 		/**
 		 * Устанавливает id категории для текущей страницы
@@ -273,7 +295,7 @@ const NotYoursNavigator = createBottomTabNavigator( {
 	initialRouteName : "CategoryList",
 	backBehavior: "history",
 	defaultNavigationOptions: {
-		tabBarVisible: false,
+		tabBarVisible: true,
 	  },
 	  
   } );
