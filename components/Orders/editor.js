@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#fff',
         width: 90,
-        marginLeft: 25,
+        marginLeft: 17,
         opacity: 0.7,
     },
     text_input: {
@@ -72,6 +72,22 @@ const styles = StyleSheet.create({
     Buttons: {
        
     },
+    button_back: {
+       
+        paddingHorizontal: 4,
+        paddingVertical: 4,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 10,
+        backgroundColor: '#ffffff',
+       // position: "absolute",
+        left: 0,
+        right:0,
+        width: Dimensions.get("window").width,
+        marginBottom: 15,
+        marginTop: 10,
+        top: 40,
+    },
     button_go: {
        
         paddingHorizontal: 4,
@@ -80,10 +96,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 10,
         backgroundColor: '#ffffff',
+        //position: "absolute",
         left: 0,
         right:0,
         marginBottom:10,
-        top: 10,
+        top: 50,
     },    
     text_button: {
         color: "#961EC4",
@@ -122,7 +139,7 @@ const TextField = (props)=>{
 
 
 /** Компонент списка заказов */
-const Orders = (props) =>
+const Editor = (props) =>
 {
 
     const state = useContext(stateContext);
@@ -132,16 +149,12 @@ const Orders = (props) =>
     return (
         <>
         <LinearGradient style={styles.grad} locations={[0, 1.0]} colors={["#931DC4", "#F33BC8"]}/>
-        <ScrollView>
         <Header {...props} showBack={true} showCart={true}/>
         <View style={styles.main}>
             <View style={styles.header}>
-                <Text style={styles.textDelivery}>Выполненые заказы</Text>
+                <Text style={styles.textDelivery}>Редактор заказов</Text>
                 <View style={styles.line}></View>
 		    </View>
-            <View style={styles.time}>
-                <Text style={styles.text}>26 августа 2019, 4 часа утра</Text>
-            </View>
             <View style={styles.data}>
                 <Text style={styles.text_info}>Имя: {state.deliveryDetails["name"]}</Text>
                 <Text style={styles.text_info}>Телефон: {state.deliveryDetails["phone"]}</Text>
@@ -152,14 +165,16 @@ const Orders = (props) =>
                     
             </View>
             <View style={styles.Buttons}>
-                   <TouchableOpacity style={styles.button_go}>
-                         <Text style={styles.text_button}>Зарегистрировать заказ</Text>
+                   <TouchableOpacity style={styles.button_back} onPress={()=>{navigation.navigate('DeliveryDetails')}}>
+                        <Text style={styles.text_button}>Редактировать</Text>
+                   </TouchableOpacity>
+                   <TouchableOpacity style={styles.button_go} onPress={()=>{navigation.navigate('Orders')}}>
+                         <Text style={styles.text_button}>разместить заказ</Text>
                    </TouchableOpacity>
             </View>
-        </View>
-        </ScrollView>
-        </>
+        </View>    
+        </>       
     );
 }
 
-export default Orders;
+export default Editor;
