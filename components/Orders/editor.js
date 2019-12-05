@@ -19,8 +19,10 @@ const styles = StyleSheet.create({
     },
     textDelivery: {
         color: '#fff',
+        fontSize: 16,
         fontWeight: "normal",
-        paddingBottom: 10,    
+        paddingBottom: 10,
+        bottom: 45,   
     },
     text: {
         color: '#fff',
@@ -33,9 +35,10 @@ const styles = StyleSheet.create({
     line: {
         borderBottomWidth: 1,
         borderBottomColor: '#fff',
-        width: 90,
-        marginLeft: 17,
+        width: 105,
+        marginLeft: 16,
         opacity: 0.7,
+        bottom: 42,
     },
     text_input: {
         height: 20,
@@ -68,9 +71,10 @@ const styles = StyleSheet.create({
     },
     header: {
         marginBottom: 20,
+        bottom: 40,
     },
     Buttons: {
-       
+       top: 25,
     },
     button_back: {
        
@@ -100,7 +104,7 @@ const styles = StyleSheet.create({
         left: 0,
         right:0,
         marginBottom:10,
-        top: 50,
+        top: 40,
     },    
     text_button: {
         color: "#961EC4",
@@ -161,8 +165,7 @@ const Editor = (props) =>
                 <Text style={styles.text_info}>Адрес: {state.deliveryDetails["address"]}</Text>
                 <Text style={styles.text_info}>Этаж: {state.deliveryDetails["floor"]}</Text>
                 <Text style={styles.text_info}>Примечания: {state.deliveryDetails["notes"]}</Text>
-                <Text style={styles.text_info}>Когда привезти: {state.deliveryDetails["when"]}</Text> 
-                    
+                <Text style={styles.text_info}>Когда привезти: {state.deliveryDetails["when"]}</Text>      
             </View>
             <View style={styles.Buttons}>
                    <TouchableOpacity style={styles.button_back} onPress={()=>{navigation.navigate('DeliveryDetails')}}>
