@@ -11,6 +11,7 @@ import {createBottomTabNavigator} from "react-navigation-tabs";
 import DeliveryDetails from './components/Delivery/index';
 import * as hehe from './utils';
 import Orders from "./components/Orders/index";
+import Editor from "./components/Orders/editor";
 
 const showToastMessage = (message) =>
 {
@@ -285,6 +286,10 @@ const NotYoursNavigator = createBottomTabNavigator( {
 	DeliveryDetails: {
 		screen: DeliveryDetails,
 		title: 'DeliveryDetails',
+	},
+	Editor: {
+		screen: Editor,
+		title: 'Editor',
 	},
 	Orders: {
 		screen: Orders,
