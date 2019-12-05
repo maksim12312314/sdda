@@ -127,8 +127,11 @@ const TextField = (props)=>{
     return (
                 <View style={styles.container}>
                     <Text style={{...styles.text, top: (isFocused||state.deliveryDetails[fieldName])?-20:0, opacity: (isFocused||state.deliveryDetails[fieldName])?0.7:1}} >{props.text}</Text>
-                    <TextInput value={state.deliveryDetails[fieldName]} onChangeText={(e)=>{ dispatch({type:"SetDeliveryDetailsField",fieldName:fieldName,payload:e}); if(isAllDeliveryDetailsSet(state)&&!buttonEnabled&&state.deliveryDetails[fieldName])
-                        setButtonEnabled(true); }} style={styles.text_input} onFocus={()=>{setFocus(true);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} onBlur={()=>{setFocus(false);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} ></TextInput>
+                    <TextInput value={state.deliveryDetails[fieldName]} onChangeText={(e)=>{ dispatch({type:"SetDeliveryDetailsField",fieldName:fieldName,payload:e});
+                    dispatch({type:"ChangeButtonStatus", buttonEnabled:buttonEnabled, setButtonEnabled });}} 
+                    style={styles.text_input} onFocus={()=>{setFocus(true);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} onBlur={()=>{setFocus(false);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}
+                    }>
+                    </TextInput>
                 </View>
     )   
 
@@ -136,19 +139,7 @@ const TextField = (props)=>{
 
 
 
-const isAllDeliveryDetailsSet = (state) =>
-{
-    
-    console.log(state.deliveryDetails)
 
-    for ( key in state.deliveryDetails)
-    {
-        
-        if (!state.deliveryDetails[key])
-            return false;
-    }
-    return true;
-}
 
 const PlaceOrderButton = (props) =>
 {
@@ -157,7 +148,7 @@ const PlaceOrderButton = (props) =>
     return (
         <TouchableOpacity activeOpacity={buttonEnabled ? 0.2 : 1} style={buttonEnabled ? styles.button_enabled : styles.button_disabled} onPress={()=>{
             if (buttonEnabled)
-                navigation.navigate('Orders')
+                navigation.navigate('Editor')
         }
         }>            
                 <Text style={styles.text_button}>Оформить заказ</Text>
