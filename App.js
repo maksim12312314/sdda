@@ -222,9 +222,9 @@ const reducer = (state, action) =>
 					{
 						text: "OK",
 						onPress: () => action.dispatch({type: "DeleteFromCart", payload: action.payload})
-					},
-					{cancelable: false},
-				]);
+					}
+				],
+				{cancelable: false});
 			}
 			else
 			{

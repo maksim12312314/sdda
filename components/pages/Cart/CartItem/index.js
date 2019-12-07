@@ -25,9 +25,9 @@ const DeleteButton = (props) =>
                         dispatch({type: "DeleteFromCart", payload: id, showAlert: true});
                         dispatch({type: "ComputeTotalPrice"});
                     },
-                },
-                {cancelable: false},
-            ]);
+                },,
+            ],
+            {cancelable: false});
             
         }}>
             <FontAwesomeIcon size={16} color={"#fff"} icon={ faTimesCircle }/>
