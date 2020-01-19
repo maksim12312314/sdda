@@ -19,8 +19,6 @@ const styles = StyleSheet.create({
     },
     textDelivery: {
         color: '#fff',
-        fontSize: 16,
-        fontWeight: "normal",
         paddingBottom: 10,
         bottom: 45,   
     },
@@ -35,7 +33,7 @@ const styles = StyleSheet.create({
     line: {
         borderBottomWidth: 1,
         borderBottomColor: '#fff',
-        width: 105,
+        width: 90,
         marginLeft: 16,
         opacity: 0.7,
         bottom: 42,
@@ -71,40 +69,37 @@ const styles = StyleSheet.create({
     },
     header: {
         marginBottom: 20,
-        bottom: 40,
+        bottom: 60,
     },
     Buttons: {
-       top: 25,
+       top: 90,
     },
     button_back: {
-       
         paddingHorizontal: 4,
-        paddingVertical: 4,
-        justifyContent: "center",
+        paddingVertical: 6,
         alignItems: "center",
         borderRadius: 10,
         backgroundColor: '#ffffff',
-       // position: "absolute",
-        left: 0,
-        right:0,
+        left: -110,
         width: Dimensions.get("window").width,
         marginBottom: 15,
-        marginTop: 10,
         top: 40,
+        width: 150,
+
     },
     button_go: {
        
         paddingHorizontal: 4,
-        paddingVertical: 4,
+        paddingVertical: 6,
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 10,
         backgroundColor: '#ffffff',
         //position: "absolute",
-        left: 0,
-        right:0,
+        left: 110,
         marginBottom:10,
-        top: 40,
+        top: -6,
+        width: 150,
     },    
     text_button: {
         color: "#961EC4",
