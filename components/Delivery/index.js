@@ -1,6 +1,18 @@
 import React, {useState, useContext, useEffect} from "react";
-import {   LayoutAnimation, Platform, UIManager, View, StyleSheet, TextInput, Text, Dimensions, Button, TouchableOpacity } from "react-native";
-import {LinearGradient} from "expo-linear-gradient";
+import {
+    LayoutAnimation,
+    Platform,
+    UIManager,
+    View,
+    StyleSheet,
+    TextInput,
+    Text,
+    Dimensions,
+    Button,
+    TouchableOpacity,
+    KeyboardAvoidingView,
+} from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { stateContext, dispatchContext } from "../../contexts";
 import Header from "./../Header/index";
 
@@ -104,9 +116,6 @@ const styles = StyleSheet.create({
     },
 });
 
-
-
-
 /** Компонент текстового поля */
 const TextField = (props)=>{
 
@@ -128,18 +137,14 @@ const TextField = (props)=>{
                 <View style={styles.container}>
                     <Text style={{...styles.text, top: (isFocused||state.deliveryDetails[fieldName])?-20:0, opacity: (isFocused||state.deliveryDetails[fieldName])?0.7:1}} >{props.text}</Text>
                     <TextInput value={state.deliveryDetails[fieldName]} onChangeText={(e)=>{ dispatch({type:"SetDeliveryDetailsField",fieldName:fieldName,payload:e});
-                    dispatch({type:"ChangeButtonStatus", buttonEnabled:buttonEnabled, setButtonEnabled });}} 
-                    style={styles.text_input} onFocus={()=>{setFocus(true);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} onBlur={()=>{setFocus(false);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}
+                        dispatch({type:"ChangeButtonStatus", buttonEnabled:buttonEnabled, setButtonEnabled });}} 
+                        style={styles.text_input} onFocus={()=>{setFocus(true);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} onBlur={()=>{setFocus(false);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}
                     }>
                     </TextInput>
                 </View>
     )   
 
 }
-
-
-
-
 
 const PlaceOrderButton = (props) =>
 {
@@ -148,7 +153,7 @@ const PlaceOrderButton = (props) =>
     return (
         <TouchableOpacity activeOpacity={buttonEnabled ? 0.2 : 1} style={buttonEnabled ? styles.button_enabled : styles.button_disabled} onPress={()=>{
             if (buttonEnabled)
-                navigation.navigate('Editor')
+                navigation.navigate('Orders')
         }
         }>            
                 <Text style={styles.text_button}>Оформить заказ</Text>
@@ -174,14 +179,14 @@ const DeliveryDetails = (props) =>
                 <Text style={styles.textDelivery}>Детали доставки</Text>
                 <View style={styles.line}></View>
 		    </View>
-            <View style={styles.data}>
+            <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={192} style={styles.data}>
                 <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="name" text="Имя"/>
                 <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="phone"  text="Телефон"/>
                 <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="address"  text="Адрес"/>
                 <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="floor"  text="Этаж"/>
                 <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="notes"  text="Примечания"/>
                 <TextField buttonEnabled={buttonEnabled} setButtonEnabled={setButtonEnabled} fieldName="when" text="Когда привезти"/>
-            </View>
+            </KeyboardAvoidingView>
             
             
         </View>
