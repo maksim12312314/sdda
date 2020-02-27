@@ -4,10 +4,13 @@ import CategoryList from "./components/pages/CategoryList/index";
 import Cart from "./components/pages/Cart/index";
 import Header from "./components/Header/index";
 import ProductList from "./components/pages/ProductsList/index";
-import { AppRegistry, ToastAndroid, Alert, AsyncStorage } from 'react-native';
+import { AppRegistry, ToastAndroid, Alert, AsyncStorage, Easing, Anumated } from 'react-native';
 import { name as appName } from "./app.json";
+
 import { createAppContainer,} from "react-navigation";
 import {createBottomTabNavigator} from "react-navigation-tabs";
+import { createStackNavigator } from 'react-navigation-stack';
+
 import DeliveryDetails from './components/Delivery/index';
 import * as hehe from './utils';
 import Orders from "./components/Orders/index";
@@ -267,10 +270,13 @@ const initialState = {
 	deliveryDetails: {},
 };
 
+
+
+
 /**
- * Это очень красивая (net) навигация
+ * Стэк навигация
  */
-const NotYoursNavigator = createBottomTabNavigator( {
+const NotYoursNavigator = createStackNavigator({
 	CategoryList: { 
 		screen: CategoryList,
 		title: 'Category',
@@ -294,15 +300,24 @@ const NotYoursNavigator = createBottomTabNavigator( {
 	Orders: {
 		screen: Orders,
 		title: 'Orders',
-	}
+	},
+	
 },
 {
-	initialRouteName : "CategoryList",
-	backBehavior: "history",
+  initialRouteName : "CategoryList",
+  
+  backBehavior: "history",
+  mode: 'modal',
+    headerMode: 'none',
 	defaultNavigationOptions: {
-		tabBarVisible: true,
+		tabBarVisible:true,
+		
 	  },
-	  
+    
+   
+    
+
+
   } );
 
 /**Контейнер приложения */

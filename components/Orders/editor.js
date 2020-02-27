@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     },
     textDelivery: {
         color: '#fff',
-        fontWeight: "normal",
-        paddingBottom: 10,    
+        paddingBottom: 10,
+        bottom: 45,   
     },
     text: {
         color: '#fff',
@@ -34,8 +34,9 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#fff',
         width: 90,
-        marginLeft: 17,
+        marginLeft: 16,
         opacity: 0.7,
+        bottom: 42,
     },
     text_input: {
         height: 20,
@@ -68,39 +69,37 @@ const styles = StyleSheet.create({
     },
     header: {
         marginBottom: 20,
+        bottom: 60,
     },
     Buttons: {
-       
+       top: 90,
     },
     button_back: {
-       
         paddingHorizontal: 4,
-        paddingVertical: 4,
-        justifyContent: "center",
+        paddingVertical: 6,
         alignItems: "center",
         borderRadius: 10,
         backgroundColor: '#ffffff',
-       // position: "absolute",
-        left: 0,
-        right:0,
+        left: -110,
         width: Dimensions.get("window").width,
         marginBottom: 15,
-        marginTop: 10,
         top: 40,
+        width: 150,
+
     },
     button_go: {
        
         paddingHorizontal: 4,
-        paddingVertical: 4,
+        paddingVertical: 6,
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 10,
         backgroundColor: '#ffffff',
         //position: "absolute",
-        left: 0,
-        right:0,
+        left: 110,
         marginBottom:10,
-        top: 50,
+        top: -6,
+        width: 150,
     },    
     text_button: {
         color: "#961EC4",
@@ -161,8 +160,7 @@ const Editor = (props) =>
                 <Text style={styles.text_info}>Адрес: {state.deliveryDetails["address"]}</Text>
                 <Text style={styles.text_info}>Этаж: {state.deliveryDetails["floor"]}</Text>
                 <Text style={styles.text_info}>Примечания: {state.deliveryDetails["notes"]}</Text>
-                <Text style={styles.text_info}>Когда привезти: {state.deliveryDetails["when"]}</Text> 
-                    
+                <Text style={styles.text_info}>Когда привезти: {state.deliveryDetails["when"]}</Text>      
             </View>
             <View style={styles.Buttons}>
                    <TouchableOpacity style={styles.button_back} onPress={()=>{navigation.navigate('DeliveryDetails')}}>
