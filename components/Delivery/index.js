@@ -15,6 +15,7 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { stateContext, dispatchContext } from "../../contexts";
 import Header from "./../Header/index";
+import OurText from "../OurText";
 
 
 if (
@@ -135,7 +136,7 @@ const TextField = (props)=>{
 
     return (
                 <View style={styles.container}>
-                    <Text style={{...styles.text, top: (isFocused||state.deliveryDetails[fieldName])?-20:0, opacity: (isFocused||state.deliveryDetails[fieldName])?0.7:1}} >{props.text}</Text>
+                    <OurText style={{...styles.text, top: (isFocused||state.deliveryDetails[fieldName])?-20:0, opacity: (isFocused||state.deliveryDetails[fieldName])?0.7:1}} >{props.text}</OurText>
                     <TextInput value={state.deliveryDetails[fieldName]} onChangeText={(e)=>{ dispatch({type:"SetDeliveryDetailsField",fieldName:fieldName,payload:e});
                         dispatch({type:"ChangeButtonStatus", buttonEnabled:buttonEnabled, setButtonEnabled });}} 
                         style={styles.text_input} onFocus={()=>{setFocus(true);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}} onBlur={()=>{setFocus(false);LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);}
@@ -156,7 +157,7 @@ const PlaceOrderButton = (props) =>
                 navigation.navigate('Orders')
         }
         }>            
-                <Text style={styles.text_button}>Оформить заказ</Text>
+                <OurText style={styles.text_button}>Оформить заказ</OurText>
         </TouchableOpacity>
     )
 }
@@ -176,7 +177,7 @@ const DeliveryDetails = (props) =>
         <Header {...props} showBack={true} showTitle={true} showCart={true}/>
         <View style={styles.main}>
             <View style={styles.header}>
-                <Text style={styles.textDelivery}>Детали доставки</Text>
+                <OurText style={styles.textDelivery}>Детали доставки</OurText>
                 <View style={styles.line}></View>
 		    </View>
             <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={192} style={styles.data}>
