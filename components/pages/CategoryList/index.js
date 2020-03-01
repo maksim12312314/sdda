@@ -82,7 +82,11 @@ const CategoryList = (props) =>
                 style={styles.background}
                 locations={[0, 1.0]} 
                 colors={['#078998', '#65B7B9']}>
+					{state?.categories?.length ?
 					<Header {...props} showTitle = {true} showCart={true}/>
+                    : error ? <Header {...props} showTitle = {true} showCart={false}/>
+                    : <></>
+                    }
                     <View style={styles.categorylist}>
 						{ state?.categories?.length ?
 							state.categories.map( (v, k) =>
