@@ -3,6 +3,7 @@ import { Text, View, TouchableOpacity, Dimensions, PixelRatio, StyleSheet, Async
 import Svg, {Path} from "react-native-svg";
 import {Badge} from 'native-base';
 import { stateContext, dispatchContext } from "../../contexts";
+import OurText from "../OurText";
 
 const styles = StyleSheet.create({
     container: {
@@ -76,7 +77,7 @@ const Header = (props) =>
                         if (titleFunc)
                             titleFunc();
                     }}>
-                    <Text style={styles.text}>{showTitle}</Text>
+                    <OurText style={styles.text}>{showTitle}</OurText>
                 </TouchableOpacity> : <></>
                 }
             </View>
@@ -91,7 +92,7 @@ const Header = (props) =>
                         fill="#fff"/>
                         {state?.cartItems?.length ?
                     <Badge success style={{width:28,height:28,top:19,left:-15}}>
-                        <Text style={
+                        <OurText style={
                             state.cartItems.length < 10 ?
                                 {color:'white',top:4, left:4} :
                                 {color:'white',top:4}
@@ -104,10 +105,10 @@ const Header = (props) =>
                                         return "9+";
                                 })() : 
                                 <></>}
-                        </Text>
-                        <Text style={{color:'white',top:0,left:18,width:200}}>
+                        </OurText>
+                        <OurText style={{color:'white',top:-7,left:22,width:200}}>
                             {state.cartTotalPrice}$
-                        </Text>
+                        </OurText>
                     </Badge>
                     : <></>}
                 </Svg>
