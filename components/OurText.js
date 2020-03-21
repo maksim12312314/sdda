@@ -5,7 +5,7 @@ const OurText = (props) =>
 {
     const { style, children } = props;
     return (
-        <Text style={style}>{children}</Text>
+        <Text style={style} allowFontScaling={false}>{children}</Text>
     );
 };
 
