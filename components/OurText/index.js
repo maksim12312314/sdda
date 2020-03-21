@@ -6,7 +6,7 @@ const OurText = (props) =>
     const { fontSize, style } = props;
     const DEFAULT_FONT_SIZE = 12;
     return (
-        <Text style={style} fontSize={fontSize ? fontSize : DEFAULT_FONT_SIZE} >{props.children}</Text>
+        <Text style={style} allowFontScaling={false} fontSize={fontSize ? fontSize : DEFAULT_FONT_SIZE} >{props.children}</Text>
     );
 };
 
