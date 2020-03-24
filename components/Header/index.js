@@ -106,7 +106,7 @@ const Header = (props) =>
                                 })() : 
                                 <></>}
                         </OurText>
-                        <OurText style={{color:'white',top:-7,left:22,width:200}}>
+                        <OurText style={{color:'white',top:4,left:22,width:200}}>
                             {state.cartTotalPrice}$
                         </OurText>
                     </Badge>
