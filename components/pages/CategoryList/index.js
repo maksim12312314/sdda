@@ -24,7 +24,7 @@ const CategoryList = (props) =>
     {
         if ( !state?.categories?.length )
         {
-            var categories;
+            let categories;
             ( async () =>
             {
                 // Получаем список категорий с хранилища
@@ -83,9 +83,9 @@ const CategoryList = (props) =>
                 locations={[0, 1.0]} 
                 colors={['#078998', '#65B7B9']}>
 					{state?.categories?.length ?
-					<Header {...props} showTitle = {true} showCart={true}/>
-                    : error ? <Header {...props} showTitle = {true} showCart={false}/>
-                    : <></>
+                        <Header {...props} showCart={true}/>
+                        : error ? <Header {...props} showCart={false}/>
+                        : <></>
                     }
                     <View style={styles.categorylist}>
 						{ state?.categories?.length ?

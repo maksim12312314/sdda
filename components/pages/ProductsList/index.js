@@ -83,7 +83,7 @@ const ProductsList = (props) =>
                     style={styles.productslist}
                     locations={[0, 1.0]} 
                     colors={['#2454e5', '#499eda']}>
-                    <Header {...props} showBack={true} showTitle={true} showCart={true}/>
+                    <Header {...props} showCart={true}/>
                     { state.products && state.products[state.currentCategory.id] ?
                     <View style={styles.items}>
                         <View style={styles.headTitle}>
