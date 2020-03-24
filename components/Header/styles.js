@@ -7,26 +7,22 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        marginTop: Constants.statusBarHeight + 8,
+        marginTop: Constants.statusBarHeight + 12,
         marginBottom: 8,
         minWidth: Dimensions.get("window").width,
-        borderWidth: 1,
-        borderColor: "#f00",
     },
     backContainer: {
         width: 40.5,
         height: 49.5,
-        borderWidth: 1,
-        borderColor: "#ff0",
+        marginLeft: 10,
     },
     iconBack: {
         width: 40.5,
         height: 49.5,
+        justifyContent: "center",
+        alignItems: "flex-end",
     },
-    titleContainer: {
-        borderWidth: 1,
-        borderColor: "#0f0",
-    },
+    titleContainer: {},
     title: {
         fontSize: 25,
         color: "#fff",
@@ -35,8 +31,7 @@ const styles = StyleSheet.create({
     cartContainer: {
         width: 49.5,
         height: 40.5,
-        borderWidth: 1,
-        borderColor: "#0ff",
+        marginRight: 15,
     },
     iconCart: {
         width: 49.5,
