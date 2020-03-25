@@ -63,7 +63,7 @@ const Cart = (props) =>
                             navigation.navigate('Orders');
                     }}>
 
-                    <OurText style={styles.text_button}>Оформить заказ</OurText>
+                    <OurText style={styles.text_button} translate={true}>cartCheckout</OurText>
                 </TouchableOpacity>
         </>
     );

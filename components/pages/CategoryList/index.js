@@ -95,7 +95,7 @@ const CategoryList = (props) =>
                                 {
                                     return <CategoryItem navigation={navigation} name={v.name} id={v.productCategoryId} imageUrl={v?.image?.mediaDetails?.file} key={k}/>
                                 })
-                            : error ? <OurText style={styles.error}>Произошла ошибка при подключении. Проверьте интернет соединение и повторите попытку.</OurText>
+                            : error ? <OurText style={styles.error} translate={true}>errorFetch</OurText>
                                 : <ActivityIndicator style={styles.loading} size="large" color="#fff"/>
                             }
                         </View>

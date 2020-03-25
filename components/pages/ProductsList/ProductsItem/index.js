@@ -6,6 +6,7 @@ import { stateContext, dispatchContext } from "../../../../contexts";
 import PickerModal from 'react-native-picker-modal-view';
 import OurText from "../../../OurText";
 import PickerButton from "../../../PickerButton";
+import {useTranslation} from "react-i18next";
 
 const address = config.getCell("StoreAddress");
 
@@ -23,7 +24,7 @@ const AttrPicker = (props) =>
                 renderSelectView={(disabled, sel, showModal) =>
                     <PickerButton
                         disabled={disabled}
-                        onPress={showModal}>{selected.Name || "HELLO"}</PickerButton>
+                        onPress={showModal}>{selected.Name || ""}</PickerButton>
                 }
                 onSelected={(val) => {
                     if ( val && Object.keys(val).length !== 0 ) {
@@ -39,7 +40,6 @@ const AttrPicker = (props) =>
                 backButtonDisabled={true}
                 showAlphabeticalIndex={true}
                 autoGenerateAlphabeticalIndex={true}
-                selectPlaceholderText={'Choose one...'}
                 requireSelection={false}
                 autoSort={false}
             />
@@ -68,6 +68,7 @@ const ProductsItem = (props) =>
     const dispatch = useContext(dispatchContext);
     const [selected, setSelected] = useState({});
     const itemAttributes = data?.attributes?.nodes || [];
+    const {t} = useTranslation();
     
     return (
         <View style={styles.container}>
@@ -86,7 +87,9 @@ const ProductsItem = (props) =>
                     </View>
             </View>
                 <View style={styles.bottom}>
-                    <OurText style={styles.price}>Цена: {data.price || "Бесплатно"}</OurText>
+                    <OurText style={styles.price} params={{
+                        price: ( data.price === 0 || !data.price ) ? t("productFree") : data.price
+                    }}>productPrice</OurText>
                         <TouchableOpacity style={styles.button} onPress={ (e) =>
                         {
                             // Обрабатываем нажатие на кнопку "Купить"
@@ -103,9 +106,9 @@ const ProductsItem = (props) =>
                                 ]
                             };
                             // Добавляем в корзину
-                            dispatch({type: "AddToCart", payload:payload, dispatch: dispatch});
+                            dispatch({type: "AddToCart", payload:payload, dispatch: dispatch, t: t});
                         }}>
-                            <OurText style={styles.text_button}>Купить</OurText>
+                            <OurText style={styles.text_button} translate={true}>productBuy</OurText>
                         </TouchableOpacity>
                 </View>
                     <View>

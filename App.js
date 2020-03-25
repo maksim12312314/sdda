@@ -17,6 +17,7 @@ import Orders from "./components/Orders/index";
 import Editor from "./components/Orders/editor";
 
 import "./i18n";
+import { useTranslation} from "react-i18next";
 
 const showToastMessage = (message) =>
 {
@@ -34,7 +35,7 @@ const isAllDeliveryDetailsSet = (state) =>
             return false;
     } 
     return true;
-}
+};
 
 
 /**
@@ -55,7 +56,7 @@ const reducer = (state, action) =>
 			newState.cartItems = action.cartItems.cart || [];
 			
 			return newState;
-		};
+		}
 
 		case "SetField":
 		{
@@ -63,7 +64,7 @@ const reducer = (state, action) =>
 			newState[action.fieldName] = action.payload;
 
 			return newState;
-		};
+		}
 
 
 		case "SetDeliveryDetailsField":
@@ -72,15 +73,15 @@ const reducer = (state, action) =>
 			newState.deliveryDetails[action.fieldName] = action.payload;
 
 			return newState;
-		};
+		}
 		
 		case "ChangeButtonStatus":{
 			const newState = {...state};
 			
 			if(isAllDeliveryDetailsSet(newState) && !action.buttonEnabled)
-				action.setButtonEnabled(true)
+				action.setButtonEnabled(true);
 			else if(!isAllDeliveryDetailsSet(newState) && action.buttonEnabled)
-				action.setButtonEnabled(false)
+				action.setButtonEnabled(false);
 
 			return newState;
 		}
@@ -93,12 +94,13 @@ const reducer = (state, action) =>
 			const newState = {...state};
 			newState.currentCategory = action.payload;
 			return newState;
-		};
+		}
 		/**
 		 * Заносит товар и его данные в state
 		 */
 		case "AddToCart":
 		{
+			const t = action.t;
 			const newState = {...state};
 
 			/*const containing = newState.cartItems.reduce( (a,e,i,m)=>{
@@ -108,11 +110,11 @@ const reducer = (state, action) =>
 
 			}, newState.cartItems.length )*/ // Говнокод)
 
-			var containing, num;
+			let containing, num;
 
-			for ( i in newState.cartItems )
+			for ( let i in newState.cartItems )
 			{
-				if ( newState.cartItems[i].id == action.payload.id )
+				if ( newState.cartItems[i].id === action.payload.id )
 				{
 					containing = true;
 					num = i;
@@ -138,10 +140,10 @@ const reducer = (state, action) =>
 			})();
 
 			action.dispatch({type: "ComputeTotalPrice"});
-			showToastMessage(`Товар ${action.payload.name} добавлен в корзину!`);
+			showToastMessage(t("productAddedMessage", {product: action.payload.name}));
 
 			return newState;
-		};
+		}
 
 		/**
 		 * Устанавливает список продуктов для текущей страницы
@@ -153,7 +155,7 @@ const reducer = (state, action) =>
 			newState.products = {...newState.products, [action.id]: action.payload.products.nodes};
 			
 			return newState;
-		};
+		}
 
 		/**
 		 * Устанавливает список категорий для текущей страницы
@@ -165,7 +167,7 @@ const reducer = (state, action) =>
 			newState.categories = action.payload.productCategories.nodes;
 			
 			return newState;
-		};
+		}
 
 		/**
 		 * Расчитывает общую цену для корзины
@@ -180,7 +182,7 @@ const reducer = (state, action) =>
 				newState.cartTotalPrice += v.price * v.count;
 			});
 			return newState;
-		};
+		}
 
 		/**
 		 * Удаляет товар из корзины
@@ -191,7 +193,7 @@ const reducer = (state, action) =>
 			
 			const itemWithoutDeleted = state.cartItems.filter((v, i) =>
 			{
-				if ( v.id != action.payload )
+				if ( v.id !== action.payload )
 					return true;
 			});
 			newState.cartItems = itemWithoutDeleted;
@@ -201,30 +203,31 @@ const reducer = (state, action) =>
 				AsyncStorage.setItem("cartItems", JSON.stringify({cart:newState.cartItems}));
 			})();
 			return newState;
-		};
+		}
 
 		/**
 		 * Минусует 1 товар из корзины
 		 */
 		case "minus":
 		{
+			const t = action.t;
 			const newState = {...state};
 			const elem = state.cartItems.filter( (v, i) =>
 			{
-				if ( v.id == action.payload )
+				if ( v.id === action.payload )
 					return true;
 			});
 
-			if ( elem[0].count == 1 )
+			if ( elem[0].count === 1 )
 			{
-				Alert.alert("УдОлить элементы", "Хотите удОлитЪ?", [
+				Alert.alert(t("cartDeleteTitle"), t("cartDeleteMessage"), [
 					{
-						text: "Отмена",
+						text: t("cancel"),
 						onPress: () => {/*action.dispatch({type: "plus", payload: action.payload})*/},
 						style: "cancel"
 					},
 					{
-						text: "OK",
+						text: t("ok"),
 						onPress: () => {
 							action.dispatch({type: "DeleteFromCart", payload: action.payload})
 						}
@@ -239,7 +242,7 @@ const reducer = (state, action) =>
 			}
 
 			return newState;
-		};
+		}
 		/**
 		 * Плюсует 1 товар в корзину
 		 */
@@ -247,7 +250,7 @@ const reducer = (state, action) =>
 		{
 			const elem = state.cartItems.filter( (v, i) =>
 			{
-				if ( v.id == action.payload )
+				if ( v.id === action.payload )
 					return true;
 			});
 			const newState = {...state};
@@ -260,11 +263,11 @@ const reducer = (state, action) =>
 			})();
 
 			return newState;
-		};
+		}
 
 		default:
 			return state;
-	};
+	}
 };
 
 const initialState = {
@@ -340,5 +343,5 @@ const App = () =>
 			</dispatchContext.Provider>
 		</stateContext.Provider>
 	);
-}
+};
 export default App;

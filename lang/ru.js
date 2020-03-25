@@ -2,10 +2,10 @@ const ru = {
     translation: {
         cartTitle: "Корзина",
         cartPcs: "{{count}} шт.",
-        cartTotal: "Итого: {{total}}",
+        cartTotal: "Итого: {{total}}{{currency}}",
         cartCheckout: "Оформить заказ",
         cartDeleteTitle: "Удалить из корзины",
-        cartDeleteDesc: "Вы действительно хотите удалить товар из корзины?",
+        cartDeleteMessage: "Вы действительно хотите удалить товар из корзины?",
         cancel: "Отмена",
         ok: "Ок",
 
@@ -20,9 +20,14 @@ const ru = {
         orderFormRegister: "Зарегистрировать заказ",
 
         productsTitle: "Товары",
-        productsPrice: "Цена: {{price}}",
-        productsBuy: "Купить",
+        productPrice: "Цена: {{price}}",
+        productFree: "Бесплатно",
+        productBuy: "Купить",
+        productAddedMessage: "Товар {{product}} добавлен в вашу корзину!",
         productsPickerSearch: "Найти...",
+
+        errorFetch: "Произошла ошибка при получении данных. Проверьте интернет соединение и повторите попытку.",
+        errorApp: "Произошла ошибка.",
     },
 };
 export default ru;

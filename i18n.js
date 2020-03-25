@@ -1,5 +1,6 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import * as Localization from 'expo-localization';
 import en from "./lang/en";
 import ru from "./lang/ru";
 
@@ -9,7 +10,7 @@ i18n.use(initReactI18next)
             en,
             ru,
         },
-        lng: "en",
+        lng: Localization.locale.replace(/-(.*)/, ""),
         fallbackLng: "en",
 
         interpolation: {
