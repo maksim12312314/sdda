@@ -25,15 +25,13 @@ const styles = StyleSheet.create({
     right:
     {
         flex: 1,
-        marginRight: 60,
+        marginRight: 80,
         marginTop: 20,
     },
     left:
     {
         flex: 1,
         marginTop: 20,
-        marginLeft: 10,
-        marginHorizontal: 70,
     },
     card:
     {
