@@ -8,6 +8,7 @@ import Header from "../../Header/index";
 import config from "../../../config";
 import OurText from "../../OurText";
 
+
 const address = config.getCell("StoreAddress");
 
 /**Список категорий товаров*/
