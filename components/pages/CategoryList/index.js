@@ -7,7 +7,7 @@ import styles from "./styles";
 import Header from "../../Header/index";
 import config from "../../../config";
 import OurText from "../../OurText";
-import GetFetchAPI from "../../../Api"
+
 
 const address = config.getCell("StoreAddress");
 
@@ -39,20 +39,41 @@ const CategoryList = (props) =>
                 }
             })();
             
-            fetch(GetFetchAPI)
-            .then(res => res.json())
-            .then( ({data}) => 
-                {
-                    ( async () =>
-                    {
-                        dispatch({type: "SetCategoriesList", payload: data});
-                        await AsyncStorage.setItem("categoryList", JSON.stringify(data));
-                    })();
+            fetch(`${address}graphql`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    query: `
+                        {
+                            productCategories(where: {hideEmpty: true}) {
+                                nodes {
+                                  name
+                                  productCategoryId
+                                  image {
+                                    mediaDetails {
+                                      file
+                                    }
+                                  }
+                                }
+                              }
+                        }
+                    `,
+                }),
                 })
-            .catch(err => setError(true));
-            
+				.then(res => res.json())
+                .then( ({data}) => 
+                    {
+                        ( async () =>
+                        {
+                            dispatch({type: "SetCategoriesList", payload: data});
+                            await AsyncStorage.setItem("categoryList", JSON.stringify(data));
+                        })();
+                    })
+                .catch(err => setError(true));
+
         }
-        console.log(fetch(GetFetchAPI))
     }, []);
 
 
