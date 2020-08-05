@@ -31,8 +31,12 @@ const Header = (props) =>
                 json = JSON.parse(val);
             }
             catch (e) {}
-            dispatch({type: "SetCartItems", cartItems: json});
-            dispatch({type: "ComputeTotalPrice"});
+
+            if(json){
+                dispatch({type: "SetCartItems", cartItems: json});
+                dispatch({type: "ComputeTotalPrice"});
+            }
+            
         });
        
     }, []);
