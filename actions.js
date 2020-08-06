@@ -41,7 +41,7 @@ export const SetProductList = (products, id) => {
     return {type: SET_PRODUCTS_LIST, payload: products, id};
 };
 
-export const SetCategiriesList = (categories) => {
+export const SetCategoriesList = (categories) => {
     return {type: SET_CATEGORIES_LIST, payload: categories};
 };
 
