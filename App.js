@@ -72,7 +72,7 @@ const reducer = (state, action) =>
 		case SET_CART_ITEMS:
 		{
 			const newState = {...state};
-			newState.cartItems = action.cartItems.cart || [];
+			newState.cartItems = action?.payload?.cart || [];
 			
 			return newState;
 		}
