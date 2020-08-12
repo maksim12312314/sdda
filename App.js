@@ -119,7 +119,7 @@ const reducer = (state, action) =>
 		 */
 		case ADD_TO_CART:
 		{
-			const t = action.t;
+			const t = action.t; // Translate
 			const newState = {...state};
 
 			/*const containing = newState.cartItems.reduce( (a,e,i,m)=>{
