@@ -70,6 +70,7 @@ const ProductsList = (props) =>
             .then( (res) => 
                 {
                     const {data} = res
+                   
                     if ( data.errors )
                         setError(true)
                     else
@@ -77,7 +78,7 @@ const ProductsList = (props) =>
                         dispatch(SetProductsList(data, state.currentCategory.id));
                 })
             // Иначе показываем ошибку
-            .catch(err => setError(true))
+            .catch(err => {setError(true)})
     }, [state.currentCategory]);
 
     return (

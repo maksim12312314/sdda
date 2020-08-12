@@ -38,7 +38,7 @@ const CategoryList = (props) =>
                 if ( categories )
                 {
                     categories = JSON.parse(categories);
-                    console.log(SetCategoriesList, "wtf")
+                    
                     dispatch(SetCategoriesList(categories));
                 }
             })();
