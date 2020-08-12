@@ -5,6 +5,7 @@ import { stateContext, dispatchContext } from "../../contexts";
 import { NavigationActions } from "react-navigation";
 import Header from "./../Header/index";
 import OurText from "../OurText";
+import Orders from "../Orders";
 
 if (
     Platform.OS === 'android' &&

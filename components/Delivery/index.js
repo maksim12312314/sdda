@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { stateContext, dispatchContext } from "../../contexts";
-import Header from "./../Header/index";
+import Header from "../Header";
 import OurText from "../OurText";
 
 
@@ -22,6 +22,7 @@ import {
     SetDeliveryDetailsField,
     ChangeButtonStatus
 } from "../../actions";
+import Editor from "../Orders/editor";
 
 if (
     Platform.OS === 'android' &&
@@ -133,10 +134,10 @@ const TextField = (props)=>{
     const [text, setText] = useState("");
    
 
-    useEffect(()=>{
+    // useEffect(()=>{
         
-            dispatch(SetDeliveryDetailsField(fieldName, payload));
-    }, [] )
+    //         dispatch(SetDeliveryDetailsField(fieldName, ));
+    // }, [] )
 
 
     return (
@@ -159,7 +160,7 @@ const PlaceOrderButton = (props) =>
     return (
         <TouchableOpacity activeOpacity={buttonEnabled ? 0.2 : 1} style={buttonEnabled ? styles.button_enabled : styles.button_disabled} onPress={()=>{
             if (buttonEnabled)
-                navigation.navigate('Orders')
+                navigation.navigate('Editor');
         }
         }>            
                 <OurText style={styles.text_button}>Оформить заказ</OurText>
