@@ -5,6 +5,7 @@ import {
     UIManager,
     View,
     StyleSheet,
+    FlatList,
     TextInput,
     Text,
     Dimensions,
