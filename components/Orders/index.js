@@ -119,6 +119,26 @@ const DATA =[
         id: '1',
         title: "item"
     },
+    {
+        id: '1',
+        title: "item"
+    },
+    {
+        id: '1',
+        title: "item"
+    },
+    {
+        id: '1',
+        title: "item"
+    },
+    {
+        id: '1',
+        title: "item"
+    },
+    {
+        id: '1',
+        title: "item"
+    },
     
 ];
     
